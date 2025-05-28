@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My Portfolio</title>
+  <meta name="description" content="Portfolio of Vela, a creative developer. Projects, skills, and contact information.">
+  <meta property="og:title" content="My Portfolio">
+  <meta property="og:description" content="Portfolio of Vela, a creative developer. Projects, skills, and contact information.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://its-dev-vela.me">
+  <meta property="og:image" content="/assets/og-image.webp">
+  <meta name="theme-color" content="#0a192f">
+  <link rel="icon" href="assets/profile.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles/style-base.css">
+  <link rel="stylesheet" href="styles/style-layout.css">
+  <link rel="stylesheet" href="styles/style-components.css">
+  <link rel="stylesheet" href="styles/style-animations.css">
+  <link rel="stylesheet" href="styles/style-responsive.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li class="nav__item"><a class="nav__link" href="#hero">Home</a></li>
+        <li class="nav__item"><a class="nav__link" href="#about">About</a></li>
+        <li class="nav__item"><a class="nav__link" href="#projects">Projects</a></li>
+        <li class="nav__item"><a class="nav__link" href="#contact">Contact</a></li>
+        <li class="nav__item"><a class="nav__link" href="#education">Education</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section id="hero" class="hero" aria-label="Hero section" style="background: url('assets/main content background.png') center/cover no-repeat; border-radius: 18px; box-shadow: 0 4px 32px rgba(0,0,0,0.10);">
+      <h1 class="hero__title">Hi, It's me <span class="hero__name">Dev Vela</span></h1>
+      <p class="hero__subtitle">Aspiring Backend Developer &amp; Web3 Gamer</p>
+      <p class="hero__desc">I build efficient backend solutions, explore Web3 gaming, and love learning new tech and trading strategies.</p>
+      <div class="social-icons">
+        <a href="https://github.com/Goriee" aria-label="GitHub" target="_blank" rel="noopener">
+          <i class='bx bxl-github'></i>
+        </a>
+        <a href="https://www.facebook.com/Gorieeeeeee" aria-label="Facebook" target="_blank" rel="noopener">
+          <i class='bx bxl-facebook-circle'></i>
+        </a>
+        <a href="https://x.com/G0RIEEE" aria-label="Twitter/X" target="_blank" rel="noopener">
+          <i class='bx bxl-twitter'></i>
+        </a>
+      </div>
+      <div class="btn-group">
+        
+      </div>
+      <a href="#projects" class="hero__cta">View My Work</a>
+    </section>
+    <section id="about" class="about" aria-label="About me">
+      <h2 class="about__heading">About Me</h2>
+      <div class="about__content">
+        <picture>
+          <img src="assets/profile.jpg" alt="Portrait of Vela" class="about__img" loading="lazy" width="320" height="320">
+        </picture>
+        <div class="about__text">
+          <p>I am a backend developer and Web3 enthusiast with a knack for building secure and scalable server-side applications. My journey in tech spans from creating traditional web applications to exploring decentralized platforms. Currently, I am diving into the world of trading, constantly learning strategies to navigate the markets.</p>
+        </div>
+      </div>
+    </section>
+    <section id="education" class="education" aria-label="Education">
+      <h2 class="education__heading">Education</h2>
+      <div class="education__list">
+        <div class="education__item">
+          <span class="education__year">2024 - Present</span>
+          <div class="education__details">
+            <span class="education__degree">Bachelor of Science in Computer Science</span><br>
+            <span class="education__school">Naga College Foundation</span>
+          </div>
+        </div>
+        <div class="education__item">
+          <span class="education__year">2022 - 2024</span>
+          <div class="education__details">
+            <span class="education__degree">Senior High School (TVL &amp; ICT)</span><br>
+            <span class="education__school">Camarines Sur National High School</span>
+          </div>
+        </div>
+        <div class="education__item">
+          <span class="education__year">2018 - 2022</span>
+          <div class="education__details">
+            <span class="education__degree">High School (Basic Education Program)</span><br>
+            <span class="education__school">Camarines Sur National High School</span>
+          </div>
+        </div>
+        <div class="education__item">
+          <span class="education__year">2012 - 2018</span>
+          <div class="education__details">
+            <span class="education__degree">Elementary School</span><br>
+            <span class="education__school">Caluag Elementary School</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="projects" class="projects" aria-label="Projects">
+      <h2 class="projects__heading">Projects</h2>
+      <div class="projects__list">
+        <article class="project">
+          <picture style="display:block;text-align:center;margin-bottom:1rem;">
+            <a href="assets/classroom reserve.png" target="_blank" rel="noopener" class="project__img-link">
+              <img src="assets/classroom reserve.png" alt="Screenshot of Classroom Reserve" class="project__img" loading="lazy" width="400" height="233" style="max-width:100%;height:auto;display:inline-block;box-shadow:0 2px 16px rgba(0,0,0,0.10);border-radius:8px;cursor:zoom-in;">
+            </a>
+          </picture>
+          <div class="project__info">
+            <h3 class="project__title">Classroom Reserve</h3>
+            <p class="project__desc">A classroom reservation system for managing and booking rooms efficiently. Built with modern web technologies. <br><strong>GitHub:</strong> <a href="https://github.com/Mrcod3xx/classroom-reserve" target="_blank" rel="noopener">Mrcod3xx/classroom-reserve</a></p>
+            <a href="https://github.com/Mrcod3xx/classroom-reserve" class="project__link" target="_blank" rel="noopener" aria-label="View Classroom Reserve on GitHub">View Project</a>
+          </div>
+        </article>
+        <article class="project">
+          <picture style="display:block;text-align:center;margin-bottom:1rem;">
+            <a href="assets/scarper+chatbot.png" target="_blank" rel="noopener" class="project__img-link">
+              <img src="assets/scarper+chatbot.png" alt="Screenshot of Web Scraper & AI Chatbot" class="project__img" loading="lazy" width="400" height="233" style="max-width:100%;height:auto;display:inline-block;box-shadow:0 2px 16px rgba(0,0,0,0.10);border-radius:8px;cursor:zoom-in;">
+            </a>
+          </picture>
+          <div class="project__info">
+            <h3 class="project__title">Web Scraper & AI Chatbot</h3>
+            <p class="project__desc">A web application that combines web scraping capabilities with an AI-powered chatbot for intelligent data extraction and interaction.<br><strong>GitHub:</strong> <a href="https://github.com/Mrcod3xx/web-scaper-and-ai-chatbot" target="_blank" rel="noopener">Mrcod3xx/web-scaper-and-ai-chatbot</a></p>
+            <a href="https://github.com/Mrcod3xx/web-scaper-and-ai-chatbot" class="project__link" target="_blank" rel="noopener" aria-label="View Web Scraper & AI Chatbot on GitHub">View Project</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="contact" class="contact" aria-label="Contact">
+      <h2 class="contact__heading" style="margin-bottom: 1.2rem; margin-left: 0.5rem; background: none; color: var(--color-primary);">Contact</h2>
+      <div class="contact__box">
+        <form class="contact__form" action="#" method="post" aria-label="Contact form">
+          <label for="name" class="contact__label">Name</label>
+          <input type="text" id="name" name="name" class="contact__input" required>
+          <label for="email" class="contact__label">Email</label>
+          <input type="email" id="email" name="email" class="contact__input" required>
+          <label for="message" class="contact__label">Message</label>
+          <textarea id="message" name="message" class="contact__input" rows="5" required></textarea>
+          <button type="submit" class="contact__submit">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" role="contentinfo">
+    <p class="footer__text">&copy; 2025 De Vela. Built with HTML, CSS & JS.</p>
+    <ul class="footer__social">
+      <li><a href="#" class="footer__link" aria-label="GitHub"><span aria-hidden="true">🐙</span></a></li>
+      <li><a href="#" class="footer__link" aria-label="LinkedIn"><span aria-hidden="true">💼</span></a></li>
+    </ul>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
