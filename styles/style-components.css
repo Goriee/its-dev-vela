@@ -39,8 +39,11 @@
   height: 200px;
   object-fit: cover;
   display: block;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal .project__img {
+  opacity: 0;
 }
 .reveal-visible .project__img {
   opacity: 1;
@@ -67,6 +70,24 @@
 .project__link:hover,
 .project__link:focus {
   color: var(--color-white);
+}
+
+/* Ensure images are visible - Fallback for animation issues */
+.project__img,
+.about__img {
+  opacity: 1 !important;
+}
+
+/* Keep reveal animation but with fallback */
+.reveal .project__img,
+.reveal .about__img {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.reveal-visible .project__img,
+.reveal-visible .about__img {
+  opacity: 1;
 }
 
 /* Education Section */

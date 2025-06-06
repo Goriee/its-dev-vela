@@ -257,7 +257,7 @@
   align-items: center;
   text-align: center;
   padding: var(--spacing-section) 1rem 2rem 1rem;
-  background: url('../assets/main content background.png') center bottom/cover no-repeat;
+  background: url('../assets/main-content-background.png') center bottom/cover no-repeat;
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(0,0,0,0.10);
   position: relative;
@@ -376,11 +376,14 @@
   height: 320px;
   object-fit: cover;
   box-shadow: 0 4px 32px rgba(0,0,0,0.15);
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1);
   background: none;
   position: relative;
   z-index: 1;
+}
+.reveal .about__img {
+  opacity: 0;
 }
 .reveal-visible .about__img {
   opacity: 1;
