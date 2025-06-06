@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 0 1rem 0;
+  padding: 1rem 0;
   background: linear-gradient(90deg, rgba(10,25,47,0.15) 0%, rgba(10,25,47,0.65) 60%, rgba(10,25,47,0.15) 100%);
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
@@ -19,13 +19,53 @@
 }
 
 .nav__container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   padding: 0 2rem;
-  position: relative;
+  gap: 2rem;
+}
+
+/* Left section */
+.nav__left {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+}
+
+/* Center section */
+.nav__center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Right section */
+.nav__right {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+/* Logo styling */
+.nav__logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile logo is hidden by default */
+.nav__logo--mobile {
+  display: none;
 }
 
 .nav__toggle {
@@ -349,4 +389,52 @@
   max-width: 500px;
   color: var(--color-secondary);
   font-size: 1.3rem;
+}
+
+/* Desktop Navigation Layout */
+@media (min-width: 769px) {
+  /* Desktop: Show desktop logo on left, hide mobile logo */
+  .nav__left .nav__logo {
+    display: flex;
+  }
+  
+  .nav__logo--mobile {
+    display: none !important;
+  }
+  
+  /* Desktop: Show navigation in center */
+  .nav__center .nav__list {
+    display: flex;
+  }
+  
+  /* Desktop: Hide hamburger menu */
+  .nav__toggle {
+    display: none;
+  }
+  
+  /* Desktop: Ensure proper grid layout */
+  .nav__container {
+    grid-template-columns: 200px 1fr 200px;
+  }
+  
+  /* Desktop: Show translate text */
+  .translate__text {
+    display: inline;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav__container {
+    grid-template-columns: 150px 1fr 150px;
+    gap: 1rem;
+  }
+  
+  .nav__list {
+    gap: 1.5rem;
+  }
+  
+  .nav__link {
+    font-size: 1rem;
+  }
 }

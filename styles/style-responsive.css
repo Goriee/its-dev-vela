@@ -7,13 +7,28 @@
 /* Mobile Navigation */
 @media (max-width: 768px) {
   .nav__container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     padding: 0 1rem;
+    gap: 1rem;
   }
   
+  /* Mobile: Show hamburger menu on left */
   .nav__toggle {
     display: flex;
   }
   
+  /* Mobile: Hide desktop logo */
+  .nav__left .nav__logo {
+    display: none;
+  }
+  
+  /* Mobile: Show mobile logo in center */
+  .nav__logo--mobile {
+    display: flex !important;
+  }
+  
+  /* Mobile: Hide desktop navigation in center */
   .nav__list {
     position: fixed;
     top: 0;
@@ -28,6 +43,9 @@
     gap: 3rem;
     transition: left 0.3s ease;
     z-index: 1000;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
   
   .nav__list.active {
@@ -37,8 +55,11 @@
   .nav__link {
     font-size: 1.5rem;
     padding: 1rem;
+    color: var(--color-secondary);
+    text-decoration: none;
   }
   
+  /* Mobile: Keep language dropdown on right */
   .translate__button {
     font-size: 0.85rem;
     padding: 0.6rem 0.8rem;
