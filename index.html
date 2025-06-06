@@ -52,8 +52,7 @@
             <li class="nav__item"><a class="nav__link" href="#education">Education</a></li>
           </ul>
         </div>
-        
-        <!-- Right section: Language dropdown -->
+          <!-- Right section: Language dropdown -->
         <div class="nav__right">
           <div class="translate-container">
             <button class="translate__button" id="translateButton" aria-label="Translate this page" aria-expanded="false">
@@ -65,16 +64,17 @@
               <button class="translate__option" data-lang="en">🇺🇸 English</button>
               <button class="translate__option" data-lang="es">🇪🇸 Español</button>
               <button class="translate__option" data-lang="zh-CN">🇨🇳 中文</button>
-            <button class="translate__option" data-lang="ja">🇯🇵 日本語</button>
-            <button class="translate__option" data-lang="fr">🇫🇷 Français</button>
-            <button class="translate__option" data-lang="de">🇩🇪 Deutsch</button>
+              <button class="translate__option" data-lang="ja">🇯🇵 日本語</button>
+              <button class="translate__option" data-lang="fr">🇫🇷 Français</button>
+              <button class="translate__option" data-lang="de">🇩🇪 Deutsch</button>
+            </div>
           </div>
         </div>
       </div>
     </nav>
   </header>
   <main id="main-content">
-    <section id="hero" class="hero" aria-label="Hero section" style="background: url('assets/main-content-background.png') center/cover no-repeat; border-radius: 18px; box-shadow: 0 4px 32px rgba(0,0,0,0.10);">
+    <section id="hero" class="hero" aria-label="Hero section">
       <h1 class="hero__title">Hi, It's me <span class="hero__name">Dev Vela</span></h1>
       <p class="hero__subtitle">Aspiring Backend Developer &amp; Web3 Gamer</p>
       <p class="hero__desc">I build efficient backend solutions, explore Web3 gaming, and love learning new tech and trading strategies.</p>
@@ -140,23 +140,23 @@
     </section>
     <section id="projects" class="projects" aria-label="Projects">
       <h2 class="projects__heading">Projects</h2>
-      <div class="projects__list">
-        <article class="project">
-          <picture style="display:block;text-align:center;margin-bottom:1rem;">            <a href="assets/classroom-reserve.png" target="_blank" rel="noopener" class="project__img-link">
-              <img src="assets/classroom-reserve.png" alt="Screenshot of Classroom Reserve" class="project__img" loading="lazy" width="400" height="233" style="max-width:100%;height:auto;display:inline-block;box-shadow:0 2px 16px rgba(0,0,0,0.10);border-radius:8px;cursor:zoom-in;">
+      <div class="projects__list">        <article class="project">
+          <div class="project__img-container">
+            <a href="assets/classroom-reserve.png" target="_blank" rel="noopener" class="project__img-link">
+              <img src="assets/classroom-reserve.png" alt="Screenshot of Classroom Reserve" class="project__img" loading="lazy" width="400" height="233">
             </a>
-          </picture>
+          </div>
           <div class="project__info">
             <h3 class="project__title">Classroom Reserve</h3>
             <p class="project__desc">A classroom reservation system for managing and booking rooms efficiently. Built with modern web technologies. <br><strong>GitHub:</strong> <a href="https://github.com/Mrcod3xx/classroom-reserve" target="_blank" rel="noopener">Mrcod3xx/classroom-reserve</a></p>
             <a href="https://github.com/Mrcod3xx/classroom-reserve" class="project__link" target="_blank" rel="noopener" aria-label="View Classroom Reserve on GitHub">View Project</a>
           </div>
-        </article>
-        <article class="project">
-          <picture style="display:block;text-align:center;margin-bottom:1rem;">            <a href="assets/scraper-chatbot.png" target="_blank" rel="noopener" class="project__img-link">
-              <img src="assets/scraper-chatbot.png" alt="Screenshot of Web Scraper & AI Chatbot" class="project__img" loading="lazy" width="400" height="233" style="max-width:100%;height:auto;display:inline-block;box-shadow:0 2px 16px rgba(0,0,0,0.10);border-radius:8px;cursor:zoom-in;">
+        </article>        <article class="project">
+          <div class="project__img-container">
+            <a href="assets/scraper-chatbot.png" target="_blank" rel="noopener" class="project__img-link">
+              <img src="assets/scraper-chatbot.png" alt="Screenshot of Web Scraper & AI Chatbot" class="project__img" loading="lazy" width="400" height="233">
             </a>
-          </picture>
+          </div>
           <div class="project__info">
             <h3 class="project__title">Web Scraper & AI Chatbot</h3>
             <p class="project__desc">A web application that combines web scraping capabilities with an AI-powered chatbot for intelligent data extraction and interaction.<br><strong>GitHub:</strong> <a href="https://github.com/Mrcod3xx/web-scaper-and-ai-chatbot" target="_blank" rel="noopener">Mrcod3xx/web-scaper-and-ai-chatbot</a></p>
@@ -185,9 +185,13 @@
     <ul class="footer__social">
       <li><a href="#" class="footer__link" aria-label="GitHub"><span aria-hidden="true">🐙</span></a></li>
       <li><a href="#" class="footer__link" aria-label="LinkedIn"><span aria-hidden="true">💼</span></a></li>
-    </ul>
-  </footer>  <script src="config.js"></script>
-  <script src="translation-service.js"></script>
-  <script src="script.js" defer></script>
+    </ul>  </footer>
+  
+  <!-- Modular JavaScript Architecture -->
+  <script src="js/navigation.js"></script>
+  <script src="js/translation.js"></script>
+  <script src="js/zoom-effects.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

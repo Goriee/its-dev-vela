@@ -75,6 +75,24 @@
   }
 }
 
+/* Medium screens (tablets) */
+@media (max-width: 900px) and (min-width: 769px) {
+  .hero {
+    background-size: cover;
+    background-position: center center;
+    min-height: 90vh;
+    padding: 3rem 1.5rem;
+  }
+  
+  .hero__title {
+    font-size: 2.2rem;
+  }
+  
+  .hero__subtitle {
+    font-size: 1.3rem;
+  }
+}
+
 @media (max-width: 900px) {
   .about__content {
     flex-direction: column;
@@ -99,17 +117,26 @@
   .nav {
     padding: 1rem 0 0.5rem 0;
   }
-  
   .hero {
-    padding: 3rem 0.5rem 1rem 0.5rem;
-    min-height: 60vh;
+    padding: 2rem 0.5rem;
+    min-height: 100vh;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    border-radius: 0 !important; /* Full screen on small mobile */
   }
   .hero__title {
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* Increased from 1.5rem for better visibility */
   }
   .hero__subtitle {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Increased from 1.1rem for better readability */
     margin-bottom: 1.2rem;
+  }
+  .hero__desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 90%;
+    margin: 0 auto 2rem auto;
   }
   .about__heading,
   .projects__heading,
@@ -167,5 +194,47 @@
   
   .translate__dropdown {
     right: -20px;
+  }
+}
+
+/* Landscape orientation on mobile devices */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    padding: 1.5rem 1rem;
+  }
+  
+  .hero__title {
+    font-size: 1.6rem;
+  }
+  
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Very small screens (small phones) */
+@media (max-width: 375px) {
+  .hero {
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .hero::before {
+    background: rgba(10, 25, 47, 0.4); /* Stronger overlay for very small screens */
+  }
+  
+  .hero__title {
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+  
+  .hero__subtitle {
+    font-size: 1.1rem;
+    line-height: 1.4;
   }
 }
