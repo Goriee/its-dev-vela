@@ -4,34 +4,44 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize translation service
   const translationService = new TranslationService();
+    // Store original content for translation - Auto-detects ALL content
+  function captureOriginalContent() {
+    return {
+      title: document.title,
+      heroTitle: document.querySelector('.hero__title')?.innerHTML,
+      heroSubtitle: document.querySelector('.hero__subtitle')?.textContent,
+      heroDesc: document.querySelector('.hero__desc')?.textContent,
+      viewWork: document.querySelector('.hero__cta')?.textContent,
+      aboutHeading: document.querySelector('.about__heading')?.textContent,
+      aboutText: document.querySelector('.about__text p')?.textContent,
+      educationHeading: document.querySelector('.education__heading')?.textContent,
+      projectsHeading: document.querySelector('.projects__heading')?.textContent,
+      contactHeading: document.querySelector('.contact__heading')?.textContent,
+      nameLabel: document.querySelector('label[for="name"]')?.textContent,
+      emailLabel: document.querySelector('label[for="email"]')?.textContent,
+      messageLabel: document.querySelector('label[for="message"]')?.textContent,
+      sendButton: document.querySelector('.contact__submit')?.textContent,
+      footerText: document.querySelector('.footer__text')?.textContent,
+      // Automatically capture ALL projects (no manual updates needed!)
+      projectTitles: Array.from(document.querySelectorAll('.project__title')).map(el => el.textContent),
+      projectDescs: Array.from(document.querySelectorAll('.project__desc')).map(el => {
+        // Extract text without GitHub link
+        const clone = el.cloneNode(true);
+        const githubLink = clone.querySelector('strong');
+        if (githubLink) githubLink.remove();
+        return clone.textContent.trim();
+      }),
+      projectLinks: Array.from(document.querySelectorAll('.project__link')).map(el => el.textContent),
+      // Auto-capture education items
+      educationItems: Array.from(document.querySelectorAll('.education__item')).map(el => ({
+        year: el.querySelector('.education__year')?.textContent,
+        degree: el.querySelector('.education__degree')?.textContent,
+        school: el.querySelector('.education__school')?.textContent
+      }))
+    };
+  }
   
-  // Store original content for translation
-  const originalContent = {
-    title: document.title,
-    heroTitle: document.querySelector('.hero__title')?.innerHTML,
-    heroSubtitle: document.querySelector('.hero__subtitle')?.textContent,
-    heroDesc: document.querySelector('.hero__desc')?.textContent,
-    viewWork: document.querySelector('.hero__cta')?.textContent,
-    aboutHeading: document.querySelector('.about__heading')?.textContent,
-    aboutText: document.querySelector('.about__text p')?.textContent,
-    educationHeading: document.querySelector('.education__heading')?.textContent,
-    projectsHeading: document.querySelector('.projects__heading')?.textContent,
-    contactHeading: document.querySelector('.contact__heading')?.textContent,
-    nameLabel: document.querySelector('label[for="name"]')?.textContent,
-    emailLabel: document.querySelector('label[for="email"]')?.textContent,
-    messageLabel: document.querySelector('label[for="message"]')?.textContent,
-    sendButton: document.querySelector('.contact__submit')?.textContent,
-    footerText: document.querySelector('.footer__text')?.textContent,
-    projectTitles: Array.from(document.querySelectorAll('.project__title')).map(el => el.textContent),
-    projectDescs: Array.from(document.querySelectorAll('.project__desc')).map(el => {
-      // Extract text without GitHub link
-      const clone = el.cloneNode(true);
-      const githubLink = clone.querySelector('strong');
-      if (githubLink) githubLink.remove();
-      return clone.textContent.trim();
-    }),
-    viewProject: document.querySelector('.project__link')?.textContent
-  };
+  const originalContent = captureOriginalContent();
   // Mobile Navigation Toggle
   const navToggle = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
@@ -293,9 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } finally {
         showTranslationLoading(false);
       }
-    }
-
-    // API-based translation function
+    }    // API-based translation function - Handles unlimited projects automatically
     async function translateWithAPI(targetLang) {
       const elementsToTranslate = [
         { selector: '.hero__title', key: 'heroTitle', isHTML: true },
@@ -336,10 +344,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Add project texts
+      // Auto-add ALL projects (no manual work needed!)
       const projectTitles = document.querySelectorAll('.project__title');
       const projectDescs = document.querySelectorAll('.project__desc');
+      const projectLinks = document.querySelectorAll('.project__link');
 
+      // Add project titles
       if (originalContent.projectTitles) {
         originalContent.projectTitles.forEach((title, index) => {
           if (projectTitles[index]) {
@@ -353,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      // Add project descriptions
       if (originalContent.projectDescs) {
         originalContent.projectDescs.forEach((desc, index) => {
           if (projectDescs[index]) {
@@ -365,6 +376,46 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       }
+
+      // Add project links
+      if (originalContent.projectLinks) {
+        originalContent.projectLinks.forEach((linkText, index) => {
+          if (projectLinks[index]) {
+            textsToTranslate.push(linkText);
+            validElements.push({ 
+              element: projectLinks[index], 
+              item: { key: `projectLink${index}` },
+              originalText: linkText
+            });
+          }
+        });
+      }
+
+      // Auto-add education content
+      if (originalContent.educationItems) {
+        const educationElements = document.querySelectorAll('.education__item');
+        originalContent.educationItems.forEach((eduItem, index) => {
+          const eduElement = educationElements[index];
+          if (eduElement && eduItem.degree) {
+            textsToTranslate.push(eduItem.degree);
+            validElements.push({
+              element: eduElement.querySelector('.education__degree'),
+              item: { key: `educationDegree${index}` },
+              originalText: eduItem.degree
+            });
+          }
+          if (eduElement && eduItem.school) {
+            textsToTranslate.push(eduItem.school);
+            validElements.push({
+              element: eduElement.querySelector('.education__school'),
+              item: { key: `educationSchool${index}` },
+              originalText: eduItem.school
+            });
+          }
+        });
+      }
+
+      console.log(`🚀 Auto-detected ${textsToTranslate.length} items to translate`);
 
       // Translate all texts using the translation service
       const translatedTexts = await translationService.translateBatch(
@@ -402,16 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.title = translatedTitle;
       }
 
-      // Update project links
-      const projectLinks = document.querySelectorAll('.project__link');
-      if (originalContent.viewProject) {
-        const translatedViewProject = await translationService.translateText(originalContent.viewProject, targetLang === 'zh-CN' ? 'zh' : targetLang);
-        projectLinks.forEach(link => {
-          if (link) link.textContent = translatedViewProject;
-        });
-      }
-
-      console.log(`Page translated to: ${targetLang} using API`);
+      console.log(`✅ Page translated to: ${targetLang} using API (${translatedTexts.length} items)`);
     }
 
     // Local translation function (fallback)
@@ -504,9 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (footerText) footerText.textContent = t.footerText;
 
       console.log(`Page translated to: ${targetLang} using local translations`);
-    }
-
-    // Restore original English content
+    }    // Restore original English content - Handles unlimited projects automatically
     function restoreOriginalContent() {
       // Restore page title
       if (originalContent.title) {
@@ -588,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
         footerText.textContent = originalContent.footerText;
       }
 
-      // Restore project content
+      // Auto-restore ALL projects (no manual work needed!)
       const projectTitles = document.querySelectorAll('.project__title');
       const projectDescs = document.querySelectorAll('.project__desc');
       const projectLinks = document.querySelectorAll('.project__link');
@@ -614,13 +654,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      if (originalContent.viewProject) {
-        projectLinks.forEach(link => {
-          if (link) link.textContent = originalContent.viewProject;
+      if (originalContent.projectLinks) {
+        originalContent.projectLinks.forEach((linkText, index) => {
+          if (projectLinks[index]) {
+            projectLinks[index].textContent = linkText;
+          }
         });
       }
 
-      console.log('Original English content restored');
+      // Auto-restore education content
+      if (originalContent.educationItems) {
+        const educationElements = document.querySelectorAll('.education__item');
+        originalContent.educationItems.forEach((eduItem, index) => {
+          const eduElement = educationElements[index];
+          if (eduElement) {
+            const degreeEl = eduElement.querySelector('.education__degree');
+            const schoolEl = eduElement.querySelector('.education__school');
+            
+            if (degreeEl && eduItem.degree) {
+              degreeEl.textContent = eduItem.degree;
+            }
+            if (schoolEl && eduItem.school) {
+              schoolEl.textContent = eduItem.school;
+            }
+          }
+        });
+      }
+
+      console.log('✅ Original English content restored for all projects');
     }
 
     // Show/hide translation loading state
