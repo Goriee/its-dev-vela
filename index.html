@@ -20,16 +20,41 @@
   <link rel="stylesheet" href="styles/style-responsive.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-<body>
-  <header class="header" role="banner">
+<body>  <header class="header" role="banner">     
     <nav class="nav" aria-label="Main navigation">
-      <ul class="nav__list">
-        <li class="nav__item"><a class="nav__link" href="#hero">Home</a></li>
-        <li class="nav__item"><a class="nav__link" href="#about">About</a></li>
-        <li class="nav__item"><a class="nav__link" href="#projects">Projects</a></li>
-        <li class="nav__item"><a class="nav__link" href="#contact">Contact</a></li>
-        <li class="nav__item"><a class="nav__link" href="#education">Education</a></li>
-      </ul>
+      <div class="nav__container">
+        <!-- Mobile hamburger menu button -->
+        <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+        
+        <!-- Navigation menu -->
+        <ul class="nav__list" id="navList">
+          <li class="nav__item"><a class="nav__link" href="#hero">Home</a></li>
+          <li class="nav__item"><a class="nav__link" href="#about">About</a></li>
+          <li class="nav__item"><a class="nav__link" href="#projects">Projects</a></li>
+          <li class="nav__item"><a class="nav__link" href="#contact">Contact</a></li>
+          <li class="nav__item"><a class="nav__link" href="#education">Education</a></li>
+        </ul>
+          <!-- Translate button -->
+        <div class="translate-container">
+          <button class="translate__button" id="translateButton" aria-label="Translate this page" aria-expanded="false">
+            <i class='bx bx-globe'></i>
+            <span class="translate__text">Translate</span>
+            <i class='bx bx-chevron-down translate__arrow'></i>
+          </button>
+          <div class="translate__dropdown" id="translateDropdown">
+            <button class="translate__option" data-lang="en">🇺🇸 English</button>
+            <button class="translate__option" data-lang="es">🇪🇸 Español</button>
+            <button class="translate__option" data-lang="zh-CN">🇨🇳 中文</button>
+            <button class="translate__option" data-lang="ja">🇯🇵 日本語</button>
+            <button class="translate__option" data-lang="fr">🇫🇷 Français</button>
+            <button class="translate__option" data-lang="de">🇩🇪 Deutsch</button>
+          </div>
+        </div>
+      </div>
     </nav>
   </header>
   <main id="main-content">
@@ -140,14 +165,15 @@
         </form>
       </div>
     </section>
-  </main>
+  </main>  
   <footer class="footer" role="contentinfo">
     <p class="footer__text">&copy; 2025 De Vela. Built with HTML, CSS & JS.</p>
     <ul class="footer__social">
       <li><a href="#" class="footer__link" aria-label="GitHub"><span aria-hidden="true">🐙</span></a></li>
       <li><a href="#" class="footer__link" aria-label="LinkedIn"><span aria-hidden="true">💼</span></a></li>
     </ul>
-  </footer>
+  </footer>  <script src="config.js"></script>
+  <script src="translation-service.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
