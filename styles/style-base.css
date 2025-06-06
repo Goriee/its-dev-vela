@@ -30,3 +30,60 @@ body {
   font-size: var(--font-size-base);
   line-height: 1.6;
 }
+
+/* Hide Google Translate elements to keep design clean */
+#google_translate_element {
+  display: none !important;
+}
+
+/* Hide Google Translate toolbar */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-menu-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+/* Hide Google Translate select dropdown */
+.goog-te-gadget {
+  display: none !important;
+}
+
+/* Style translated text to prevent layout shifts */
+.translated-ltr {
+  direction: ltr !important;
+}
+
+.translated-rtl {
+  direction: rtl !important;
+}
+
+/* Prevent Google Translate from modifying body styles */
+body.translated-ltr,
+body.translated-rtl {
+  top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Hide the Google Translate iframe */
+iframe.goog-te-menu-frame {
+  display: none !important;
+}
+
+.skiptranslate {
+  display: none !important;
+}
+
+/* Ensure consistent styling for translated elements */
+font[style*="color"] {
+  color: inherit !important;
+}
+
+font[color] {
+  color: inherit !important;
+}

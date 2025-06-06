@@ -637,6 +637,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Add CSS fallback for translation dropdown
+  const style = document.createElement('style');
+  style.textContent = `
+    .translate__dropdown.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      display: block !important;
+      z-index: 9999 !important;
+    }
+    .translate__dropdown {
+      position: absolute !important;
+      top: calc(100% + 0.5rem) !important;
+      right: 0 !important;
+      background: rgba(10,25,47,0.95) !important;
+      border: 1px solid rgba(100,255,218,0.2) !important;
+      border-radius: 12px !important;
+      padding: 0.5rem !important;
+      min-width: 160px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+    }
+    .translate__option {
+      display: block !important;
+      width: 100% !important;
+      background: none !important;
+      border: none !important;
+      color: #8892b0 !important;
+      padding: 0.75rem 1rem !important;
+      text-align: left !important;
+      cursor: pointer !important;
+      border-radius: 8px !important;
+      font-size: 0.9rem !important;
+    }
+    .translate__option:hover {
+      background: rgba(100,255,218,0.1) !important;
+      color: #64ffda !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Debug information for translation
+  console.log('Translation system initialized');
+  console.log('Available translations:', Object.keys(translations));
+  console.log('Translation service:', translationService);
+  console.log('Original content stored:', Object.keys(originalContent));
+
   // Scroll-triggered reveal animations
   const revealElements = document.querySelectorAll('.hero, .about, .education, .project, .contact');
   const observer = new IntersectionObserver((entries) => {
