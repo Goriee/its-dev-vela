@@ -18,8 +18,8 @@ async function runTests() {
     }
   });
 
-  console.log('1. Navigating to http://localhost:5173...');
-  await page.goto('http://localhost:5173', { waitUntil: 'networkidle' });
+  console.log('1. Navigating to http://127.0.0.1:5173...');
+  await page.goto('http://127.0.0.1:5173', { waitUntil: 'networkidle' });
 
   // 1. Check title
   const title = await page.title();
@@ -166,6 +166,13 @@ async function runTests() {
     throw new Error(`Unexpected toast text: ${toastText}`);
   }
 
+  // 6b. Test Resume button
+  console.log('6b. Testing Resume link...');
+  const resumeBtn = page.locator('.hero__cta-resume');
+  const resumeHref = await resumeBtn.getAttribute('href');
+  console.log(`Resume link href: "${resumeHref}"`);
+  if (!resumeHref) throw new Error('Resume link has no href');
+
   // 7. Test Contact Form Validation & Submission
   console.log('7. Testing Contact Form...');
   // Scroll to contact form
@@ -191,7 +198,7 @@ async function runTests() {
   // 8. Test Mobile Viewport
   console.log('8. Testing Mobile Viewport (375x667)...');
   await page.setViewportSize({ width: 375, height: 667 });
-  await page.goto('http://localhost:5173', { waitUntil: 'networkidle' });
+  await page.goto('http://127.0.0.1:5173', { waitUntil: 'networkidle' });
 
   // Check mobile hamburger button
   const toggleBtn = page.locator('.nav__toggle-btn');

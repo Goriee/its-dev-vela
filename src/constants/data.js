@@ -134,6 +134,9 @@ export const CONTACT_INFO = {
   timezone: "GMT+8"
 };
 
+// Resume / Curriculum Vitae URL
+export const RESUME_URL = "https://github.com/Goriee";
+
 // Navigation items
 export const NAV_ITEMS = [
   { id: "hero", labelKey: "home" },

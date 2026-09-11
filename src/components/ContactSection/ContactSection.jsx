@@ -45,7 +45,7 @@ const ContactSection = ({ translations, onShowToast }) => {
     setTimeout(() => setEmailCopied(false), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) {
       onShowToast?.(translations.validationError || 'Please fill in all required fields.', 'error');
@@ -53,15 +53,60 @@ const ContactSection = ({ translations, onShowToast }) => {
     }
 
     setIsSubmitting(true);
-    
-    // Simulate submission delay
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const accessKey = import.meta.env?.VITE_WEB3FORMS_KEY;
+
+    try {
+      if (accessKey) {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            subject: `Portfolio Inquiry from ${formData.name}`,
+            from_name: formData.name
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          setIsSuccess(true);
+          setFormData({ name: '', email: '', message: '' });
+          onShowToast?.(translations.messageSent || 'Message sent successfully!', 'success');
+          setTimeout(() => setIsSuccess(false), 5000);
+          return;
+        }
+      }
+
+      // If no API key is present or API responded with fallback, open mailto intent
+      const mailtoUrl = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(
+        `Portfolio Inquiry from ${formData.name}`
+      )}&body=${encodeURIComponent(
+        `${formData.message}\n\n---\nFrom: ${formData.name}\nEmail: ${formData.email}`
+      )}`;
+
+      window.open(mailtoUrl, '_blank');
       setIsSuccess(true);
       setFormData({ name: '', email: '', message: '' });
-      onShowToast?.(translations.messageSent || 'Message sent successfully!', 'success');
+      onShowToast?.(translations.messageSent || 'Delivering via your email application...', 'success');
       setTimeout(() => setIsSuccess(false), 5000);
-    }, 1000);
+    } catch (err) {
+      console.error('Contact submission fallback:', err);
+      const mailtoUrl = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(
+        `Portfolio Inquiry from ${formData.name}`
+      )}&body=${encodeURIComponent(
+        `${formData.message}\n\n---\nFrom: ${formData.name}\nEmail: ${formData.email}`
+      )}`;
+      window.open(mailtoUrl, '_blank');
+      onShowToast?.('Opening your email app to send...', 'info');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

@@ -19,9 +19,13 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
   const rendererRef = useRef(null);
   const controlsRef = useRef(null);
   const modelGroupRef = useRef(null);
+  const shadowMeshRef = useRef(null);
   const animFrameIdRef = useRef(null);
   const isVisibleRef = useRef(true);
   const isLoadedRef = useRef(false);
+  const userInteractingRef = useRef(false);
+  const autoRotateRef = useRef(false);
+  const parallaxTargetRef = useRef({ x: 0, y: -Math.PI / 2 });
 
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,8 +38,9 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
   const [autoRotate, setAutoRotate] = useState(false);
   const [userInteracting, setUserInteracting] = useState(false);
 
-  // Sync autoRotate state to OrbitControls without re-mounting the scene
+  // Sync autoRotate state to OrbitControls and ref without re-mounting the scene
   useEffect(() => {
+    autoRotateRef.current = autoRotate;
     if (controlsRef.current) {
       controlsRef.current.autoRotate = autoRotate;
     }
@@ -48,6 +53,7 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
 
   // Reset Camera and Model Orientation to default front-facing profile
   const handleResetCamera = useCallback(() => {
+    parallaxTargetRef.current = { x: 0, y: -Math.PI / 2 };
     if (!cameraRef.current || !controlsRef.current || !modelGroupRef.current) return;
     cameraRef.current.position.set(0, 0.35, 2.3);
     controlsRef.current.target.set(0, 0, 0);
@@ -98,8 +104,14 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     controls.autoRotate = false;
     controls.autoRotateSpeed = 1.6;
 
-    controls.addEventListener('start', () => setUserInteracting(true));
-    controls.addEventListener('end', () => setUserInteracting(false));
+    controls.addEventListener('start', () => {
+      userInteractingRef.current = true;
+      setUserInteracting(true);
+    });
+    controls.addEventListener('end', () => {
+      userInteractingRef.current = false;
+      setUserInteracting(false);
+    });
     controlsRef.current = controls;
 
     // 5. Lighting Setup (Cyberpunk / Modern Developer Studio)
@@ -120,6 +132,39 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     const rimLight = new THREE.DirectionalLight(0x818cf8, 2.0);
     rimLight.position.set(0, -3, -4);
     scene.add(rimLight);
+
+    // 5b. Ground Contact Shadow (Soft Radial Falloff)
+    const createShadowTexture = () => {
+      const sCanvas = document.createElement('canvas');
+      sCanvas.width = 128;
+      sCanvas.height = 128;
+      const sCtx = sCanvas.getContext('2d');
+      if (sCtx) {
+        const gradient = sCtx.createRadialGradient(64, 64, 0, 64, 64, 64);
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
+        gradient.addColorStop(0.35, 'rgba(15, 23, 42, 0.22)');
+        gradient.addColorStop(0.7, 'rgba(15, 23, 42, 0.06)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        sCtx.fillStyle = gradient;
+        sCtx.fillRect(0, 0, 128, 128);
+      }
+      const texture = new THREE.CanvasTexture(sCanvas);
+      return texture;
+    };
+
+    const shadowGeo = new THREE.PlaneGeometry(1.6, 1.6);
+    const shadowTex = createShadowTexture();
+    const shadowMat = new THREE.MeshBasicMaterial({
+      map: shadowTex,
+      transparent: true,
+      opacity: 0.65,
+      depthWrite: false
+    });
+    const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+    shadowMesh.rotation.x = -Math.PI / 2;
+    shadowMesh.position.y = -0.58;
+    scene.add(shadowMesh);
+    shadowMeshRef.current = shadowMesh;
 
     // 6. Model Loader with MeshoptDecoder
     const modelGroup = new THREE.Group();
@@ -199,6 +244,29 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     );
     intersectionObserver.observe(container);
 
+    // 8b. Desktop Mouse Parallax
+    const handleMouseMove = (e) => {
+      if (userInteractingRef.current || autoRotateRef.current) return;
+      const rect = container.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const mouseY = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+      parallaxTargetRef.current = {
+        x: mouseY * 0.08,
+        y: -Math.PI / 2 + mouseX * 0.16
+      };
+    };
+
+    const handleMouseLeave = () => {
+      parallaxTargetRef.current = { x: 0, y: -Math.PI / 2 };
+    };
+
+    const hasFinePointer = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+    if (hasFinePointer) {
+      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseleave', handleMouseLeave);
+    }
+
     // 9. Animation Loop
     let clock = new THREE.Clock();
     const animate = () => {
@@ -207,10 +275,24 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       if (!isVisibleRef.current) return;
 
       const elapsedTime = clock.getElapsedTime();
+      const floatOffset = Math.sin(elapsedTime * 1.5) * 0.04;
 
       // Gentle floating oscillation on the model
       if (modelGroupRef.current && isLoadedRef.current) {
-        modelGroupRef.current.position.y = Math.sin(elapsedTime * 1.5) * 0.04;
+        modelGroupRef.current.position.y = floatOffset;
+
+        // Subtle desktop parallax tilt when not user-interacting or auto-rotating
+        if (!userInteractingRef.current && !autoRotateRef.current) {
+          modelGroupRef.current.rotation.y += (parallaxTargetRef.current.y - modelGroupRef.current.rotation.y) * 0.06;
+          modelGroupRef.current.rotation.x += (parallaxTargetRef.current.x - modelGroupRef.current.rotation.x) * 0.06;
+        }
+      }
+
+      // Dynamic ground contact shadow breathing
+      if (shadowMeshRef.current && isLoadedRef.current) {
+        const shadowScale = 1 - floatOffset * 0.5;
+        shadowMeshRef.current.scale.set(shadowScale, shadowScale, shadowScale);
+        shadowMeshRef.current.material.opacity = 0.65 - floatOffset * 0.35;
       }
 
       controls.update();
@@ -225,7 +307,16 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       }
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
+      if (hasFinePointer) {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      }
       controls.dispose();
+
+      // Dispose shadow resources
+      shadowGeo.dispose();
+      shadowTex.dispose();
+      shadowMat.dispose();
 
       // Dispose Three.js objects
       if (modelGroupRef.current) {

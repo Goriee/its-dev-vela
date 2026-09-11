@@ -126,6 +126,24 @@
   font-weight: 600;
 }
 
+.nav__link--resume {
+  color: var(--accent);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+}
+
+.nav__link--resume:hover {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.nav__drawer-link--resume {
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+}
+
 .nav__active-pill {
   position: absolute;
   bottom: 2px;

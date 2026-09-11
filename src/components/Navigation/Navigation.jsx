@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { NAV_ITEMS } from '../../constants/data';
+import { NAV_ITEMS, RESUME_URL } from '../../constants/data';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Navigation = ({ 
@@ -68,6 +68,17 @@ const Navigation = ({
                 </li>
               );
             })}
+            <li className="nav__item">
+              <a 
+                className="nav__link nav__link--resume" 
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Resume / CV"
+              >
+                {translations.resume || 'Resume'}
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -123,6 +134,17 @@ const Navigation = ({
                 </li>
               );
             })}
+            <li className="nav__drawer-item">
+              <a 
+                className="nav__drawer-link nav__drawer-link--resume" 
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Resume / CV"
+              >
+                {translations.resume || 'Resume'} ↗
+              </a>
+            </li>
           </ul>
         </div>
       </div>
