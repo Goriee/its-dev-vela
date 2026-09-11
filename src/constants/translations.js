@@ -70,6 +70,8 @@ export const TRANSLATIONS = {
     scraperDesc: "An intelligent web scraping pipeline paired with an interactive AI chatbot for automated data extraction and conversational queries.",
     qrTitle: "QR Attendance System",
     qrDesc: "A contactless high-throughput attendance platform featuring instant QR scanning, fast verification, and administrative reporting.",
+    ocrTitle: "OCR Student Attendance System",
+    ocrDesc: "An automated hands-free kiosk system leveraging optical character recognition (Tesseract.js) to scan and verify student IDs in real-time.",
     educationItems: [
       { degree: "Bachelor of Science in Computer Science", school: "Naga College Foundation" },
       { degree: "Senior High School (TVL & ICT Track)", school: "Camarines Sur National High School" },
@@ -147,6 +149,8 @@ export const TRANSLATIONS = {
     scraperDesc: "Pipeline de extracción automatizada combinado con un chatbot interactivo impulsado por IA para consultas inteligentes.",
     qrTitle: "Sistema de Asistencia QR",
     qrDesc: "Plataforma de asistencia sin contacto con escaneo de códigos QR en tiempo real y panel administrativo de reportes.",
+    ocrTitle: "Sistema de Asistencia Estudiantil OCR",
+    ocrDesc: "Un sistema de quiosco automatizado que utiliza reconocimiento óptico de caracteres (Tesseract.js) para escanear y verificar identificaciones estudiantiles en tiempo real.",
     educationItems: [
       { degree: "Licenciatura en Ciencias de la Computación", school: "Naga College Foundation" },
       { degree: "Educación Secundaria Superior (TVL y TIC)", school: "Camarines Sur National High School" },
@@ -224,6 +228,8 @@ export const TRANSLATIONS = {
     scraperDesc: "结合定制化网络数据采集流水线与大语言模型 API 的智能交互分析平台。",
     qrTitle: "动态二维码考勤打卡系统",
     qrDesc: "面向高频并发签到场景的高吞吐考勤系统，具备二维码毫秒级验签与后台报表统计功能。",
+    ocrTitle: "OCR 学生智能考勤系统",
+    ocrDesc: "基于光学字符识别（Tesseract.js）的无人值守学生考勤系统，支持多角度实时扫描与身份验证。",
     educationItems: [
       { degree: "计算机科学学士学位", school: "Naga College Foundation" },
       { degree: "高中（技术职业与信息通信技术专修）", school: "Camarines Sur National High School" },
@@ -301,6 +307,8 @@ export const TRANSLATIONS = {
     scraperDesc: "自動データ収集パイプラインとLLM APIを統合した対話型データ分析アプリケーション。",
     qrTitle: "QRコード出席管理システム",
     qrDesc: "高速QRコード読み取りによる瞬時認証と管理者向け分析機能を備えた非接触型出席管理システム。",
+    ocrTitle: "OCR 学生出席管理システム",
+    ocrDesc: "光学文字認識（Tesseract.js）を活用した自動キオスク出席システム。学生証をリアルタイムで認識・照合。",
     educationItems: [
       { degree: "コンピュータサイエンス学部 学士号", school: "Naga College Foundation" },
       { degree: "高等専門学校（TVL & ICTコース）", school: "Camarines Sur National High School" },
@@ -378,6 +386,8 @@ export const TRANSLATIONS = {
     scraperDesc: "Pipeline d'extraction de données automatisé couplé à un assistant IA interactif pour requêtes intelligentes.",
     qrTitle: "Système de Présence QR",
     qrDesc: "Solution d'émargement sans contact haute performance avec lecture de code QR instantanée et rapports de présence.",
+    ocrTitle: "Système de Présence Étudiante par OCR",
+    ocrDesc: "Un kiosque automatisé utilisant la reconnaissance optique de caractères (Tesseract.js) pour scanner et vérifier les cartes d'étudiants en temps réel.",
     educationItems: [
       { degree: "Licence en Informatique (B.S.)", school: "Naga College Foundation" },
       { degree: "Baccalauréat Professionnel (TVL & TIC)", school: "Camarines Sur National High School" },
@@ -455,6 +465,8 @@ export const TRANSLATIONS = {
     scraperDesc: "Automatisierte Datenerfassungs-Pipeline mit integriertem KI-Chatbot für intelligente Abfragen.",
     qrTitle: "QR-Code Anwesenheitssystem",
     qrDesc: "Kontaktloses Hochleistungs-Erfassungssystem mit QR-Code-Scanning und Analyse-Dashboard.",
+    ocrTitle: "OCR-Studenten-Anwesenheitssystem",
+    ocrDesc: "Ein automatisiertes Kiosksystem mit optischer Zeichenerkennung (Tesseract.js) zur Echtzeit-Erfassung und Verifizierung von Studentenausweisen.",
     educationItems: [
       { degree: "Bachelor of Science in Informatik", school: "Naga College Foundation" },
       { degree: "Höhere Fachoberschule (TVL & IKT)", school: "Camarines Sur National High School" },

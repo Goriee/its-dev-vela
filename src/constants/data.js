@@ -1,6 +1,7 @@
 import classroomReserve from "../assets/classroom-reserve.png";
 import scraperChatbot from "../assets/scraper-chatbot.png";
 import qrAttendance from "../assets/qr-attendance.svg";
+import ocrAttendance from "../assets/ocr-attendance.svg";
 
 // Core Technology Stack for Hero and Showcase
 export const TECH_STACK = [
@@ -31,6 +32,21 @@ export const PROJECT_DATA = [
       "Role-based authentication & reservation conflict detection algorithms",
       "Dynamic scheduling dashboard with real-time room availability",
       "RESTful API design adhering to clean architectural patterns"
+    ]
+  },
+  {
+    id: "ocr-attendance",
+    image: ocrAttendance,
+    link: "https://github.com/Mrcod3xx/OCR-Student-Attendance-System",
+    github: "Mrcod3xx/OCR-Student-Attendance-System",
+    category: "ai",
+    tags: ["React", "TypeScript", "Tesseract.js", "Computer Vision", "Tailwind CSS"],
+    titleKey: "ocrTitle",
+    descKey: "ocrDesc",
+    highlights: [
+      "100% automated hands-free kiosk scanning with multi-angle ID detection (0°, 90°, 180°, 270°)",
+      "High-speed Tesseract.js OCR engine with offscreen contrast & grayscale image filtering",
+      "Web Audio API synthesizer (880Hz → 1318Hz) for instant chime confirmation and cooldown protection"
     ]
   },
   {
