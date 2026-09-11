@@ -128,8 +128,8 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     fillLight.position.set(-5, 2, -2);
     scene.add(fillLight);
 
-    // Rim / Edge Light (indigo / purple accent)
-    const rimLight = new THREE.DirectionalLight(0x818cf8, 2.0);
+    // Rim / Edge Light (tech azure accent)
+    const rimLight = new THREE.DirectionalLight(0x0284c7, 2.0);
     rimLight.position.set(0, -3, -4);
     scene.add(rimLight);
 
