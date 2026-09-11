@@ -32,6 +32,8 @@ SocialIcon.propTypes = {
   id: PropTypes.string.isRequired
 };
 
+import ModelViewer3D from '../ModelViewer3D/ModelViewer3D';
+
 const HeroSection = ({ 
   translations, 
   onNavigate,
@@ -52,92 +54,100 @@ const HeroSection = ({
       <div className="hero__ambient-glow" aria-hidden="true" />
       <div className="hero__grid-pattern" aria-hidden="true" />
 
-      <div className="hero__container">
-        {/* Availability Badge */}
-        <div className="hero__badge">
-          <span className="hero__badge-pulse" aria-hidden="true" />
-          <span className="hero__badge-text">{translations.availableBadge}</span>
-        </div>
-
-        {/* Hero Title & Identity */}
-        <div className="hero__heading-group">
-          <p className="hero__greeting">Hello, I&apos;m</p>
-          <h1 id="hero-title" className="hero__title">
-            <span className="hero__title-accent">Dev Vela</span>
-          </h1>
-          <p className="hero__subtitle">{translations.heroSubtitle}</p>
-        </div>
-
-        {/* Narrative bio */}
-        <p className="hero__desc">{translations.heroDesc}</p>
-
-        {/* Action Button Group */}
-        <div className="hero__actions">
-          <a
-            href="#projects"
-            className="btn btn--primary hero__cta-primary"
-            onClick={(e) => onNavigate(e, '#projects')}
-          >
-            <span>{translations.viewWork}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </a>
-
-          <button
-            type="button"
-            className="btn btn--secondary hero__cta-secondary"
-            onClick={handleCopy}
-            aria-label="Copy email address to clipboard"
-          >
-            {copied ? (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                <span>Copied!</span>
-              </>
-            ) : (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                </svg>
-                <span>{translations.copyEmail}</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        {/* Social Links */}
-        <div className="hero__social" aria-label="Social profiles">
-          <ul className="hero__social-list">
-            {SOCIAL_LINKS.map(({ id, url, label }) => (
-              <li key={id} className="hero__social-item">
-                <a
-                  href={url}
-                  className="hero__social-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                >
-                  <SocialIcon id={id} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Tech Stack Pills Strip */}
-        <div className="hero__tech-strip" aria-label="Core technologies">
-          <span className="hero__tech-label">Core Technologies:</span>
-          <div className="hero__tech-list">
-            {TECH_STACK.slice(0, 7).map(({ name }) => (
-              <span key={name} className="hero__tech-pill">
-                {name}
-              </span>
-            ))}
+      <div className="hero__container hero__container--2col">
+        {/* Left Column: Textual Identity & Actions */}
+        <div className="hero__content-col">
+          {/* Availability Badge */}
+          <div className="hero__badge">
+            <span className="hero__badge-pulse" aria-hidden="true" />
+            <span className="hero__badge-text">{translations.availableBadge}</span>
           </div>
+
+          {/* Hero Title & Identity */}
+          <div className="hero__heading-group">
+            <p className="hero__greeting">Hello, I&apos;m</p>
+            <h1 id="hero-title" className="hero__title">
+              <span className="hero__title-accent">Dev Vela</span>
+            </h1>
+            <p className="hero__subtitle">{translations.heroSubtitle}</p>
+          </div>
+
+          {/* Narrative bio */}
+          <p className="hero__desc">{translations.heroDesc}</p>
+
+          {/* Action Button Group */}
+          <div className="hero__actions">
+            <a
+              href="#projects"
+              className="btn btn--primary hero__cta-primary"
+              onClick={(e) => onNavigate(e, '#projects')}
+            >
+              <span>{translations.viewWork}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </a>
+
+            <button
+              type="button"
+              className="btn btn--secondary hero__cta-secondary"
+              onClick={handleCopy}
+              aria-label="Copy email address to clipboard"
+            >
+              {copied ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                  </svg>
+                  <span>{translations.copyEmail}</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Social Links */}
+          <div className="hero__social" aria-label="Social profiles">
+            <ul className="hero__social-list">
+              {SOCIAL_LINKS.map(({ id, url, label }) => (
+                <li key={id} className="hero__social-item">
+                  <a
+                    href={url}
+                    className="hero__social-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                  >
+                    <SocialIcon id={id} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tech Stack Pills Strip */}
+          <div className="hero__tech-strip" aria-label="Core technologies">
+            <span className="hero__tech-label">Core Technologies:</span>
+            <div className="hero__tech-list">
+              {TECH_STACK.slice(0, 7).map(({ name }) => (
+                <span key={name} className="hero__tech-pill">
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: 3D Interactive Model Showcase */}
+        <div className="hero__model-col" aria-label="Interactive 3D Experience">
+          <ModelViewer3D modelUrl="/models/mymodel.glb" />
         </div>
       </div>
     </section>

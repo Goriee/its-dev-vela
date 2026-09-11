@@ -25,6 +25,31 @@
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
+
+  .hero__container--2col {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .hero__content-col {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__content-col .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__content-col .hero__tech-strip {
+    justify-content: center;
+  }
+
+  .hero__model-col {
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
 /* ====================================

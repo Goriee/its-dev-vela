@@ -28,6 +28,31 @@ async function runTests() {
     throw new Error(`Unexpected page title: ${title}`);
   }
 
+  // Verify 3D Model Viewer and Model Loading
+  console.log('1b. Checking 3D Model Viewer & Loading...');
+  await page.waitForSelector('.model-viewer', { state: 'visible' });
+  await page.waitForSelector('.model-viewer__controls', { state: 'visible', timeout: 20000 });
+  console.log('3D Model loaded and controls rendered successfully!');
+
+  const modelViewerElement = page.locator('.model-viewer');
+  await page.waitForTimeout(800); // Allow initial WebGL render to stabilize
+  const modelBox = await modelViewerElement.boundingBox();
+
+  // Take 3D model Dark Mode screenshot
+  const modelDarkPath = path.join(screenshotDir, 'model3d_dark_mode.png');
+  await page.screenshot({ path: modelDarkPath, clip: modelBox });
+  console.log(`Saved screenshot: ${modelDarkPath}`);
+
+  // Test Auto-Rotate toggle
+  console.log('Testing Auto-Rotate toggle...');
+  const autoRotateBtn = page.locator('.model-viewer__btn', { hasText: 'Auto Rotate' });
+  await autoRotateBtn.click();
+  await page.waitForTimeout(300);
+  const rotatingStatus = await page.locator('.model-viewer__btn', { hasText: 'Rotating' }).isVisible();
+  console.log(`Auto-rotate rotating visible: ${rotatingStatus}`);
+  await page.locator('.model-viewer__btn', { hasText: 'Rotating' }).click(); // toggle back off
+  await page.waitForTimeout(300);
+
   // Scroll down to trigger reveal animations for all sections
   await page.evaluate(async () => {
     const distance = 400;
@@ -49,10 +74,16 @@ async function runTests() {
   console.log('2. Testing Theme Toggle...');
   const themeToggleBtn = page.locator('.theme-toggle');
   await themeToggleBtn.click();
-  await page.waitForTimeout(300);
+  await page.waitForTimeout(500);
   const themeAttr1 = await page.locator('html').getAttribute('data-theme');
   console.log(`Theme after toggle 1: ${themeAttr1}`);
   if (themeAttr1 !== 'light') throw new Error(`Expected light theme, got ${themeAttr1}`);
+
+  // Take 3D model Light Mode screenshot
+  const lightModelBox = await modelViewerElement.boundingBox();
+  const modelLightPath = path.join(screenshotDir, 'model3d_light_mode.png');
+  await page.screenshot({ path: modelLightPath, clip: lightModelBox });
+  console.log(`Saved screenshot: ${modelLightPath}`);
 
   // Take screenshot: Light mode homepage
   const lightPath = path.join(screenshotDir, 'light_mode_home.png');

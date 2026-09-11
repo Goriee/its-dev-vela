@@ -10,3 +10,4 @@ export { default as ProjectsSection } from './ProjectsSection/ProjectsSection';
 export { default as ProjectCard } from './ProjectCard/ProjectCard';
 export { default as ContactSection } from './ContactSection/ContactSection';
 export { default as Footer } from './Footer/Footer';
+export { default as ModelViewer3D } from './ModelViewer3D/ModelViewer3D';
