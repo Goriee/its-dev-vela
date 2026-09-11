@@ -244,9 +244,12 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     );
     intersectionObserver.observe(container);
 
-    // 8b. Desktop Mouse Parallax
+    // 8b. Desktop Mouse Parallax (Bypassed if user prefers reduced motion)
+    const prefersReducedMotion = typeof window !== 'undefined' && 
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const handleMouseMove = (e) => {
-      if (userInteractingRef.current || autoRotateRef.current) return;
+      if (prefersReducedMotion || userInteractingRef.current || autoRotateRef.current) return;
       const rect = container.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       const mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -261,7 +264,10 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       parallaxTargetRef.current = { x: 0, y: -Math.PI / 2 };
     };
 
-    const hasFinePointer = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+    const hasFinePointer = typeof window !== 'undefined' && 
+      window.matchMedia('(pointer: fine)').matches && 
+      !prefersReducedMotion;
+
     if (hasFinePointer) {
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
@@ -275,24 +281,31 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       if (!isVisibleRef.current) return;
 
       const elapsedTime = clock.getElapsedTime();
-      const floatOffset = Math.sin(elapsedTime * 1.5) * 0.04;
+      
+      // Floating physics (only if motion is enabled)
+      const floatOffset = prefersReducedMotion ? 0 : Math.sin(elapsedTime * 1.5) * 0.04;
 
-      // Gentle floating oscillation on the model
+      // Model orientation and positioning
       if (modelGroupRef.current && isLoadedRef.current) {
         modelGroupRef.current.position.y = floatOffset;
 
         // Subtle desktop parallax tilt when not user-interacting or auto-rotating
-        if (!userInteractingRef.current && !autoRotateRef.current) {
-          modelGroupRef.current.rotation.y += (parallaxTargetRef.current.y - modelGroupRef.current.rotation.y) * 0.06;
-          modelGroupRef.current.rotation.x += (parallaxTargetRef.current.x - modelGroupRef.current.rotation.x) * 0.06;
+        if (!prefersReducedMotion && !userInteractingRef.current && !autoRotateRef.current) {
+          modelGroupRef.current.rotation.y += (parallaxTargetRef.current.y - modelGroupRef.current.rotation.y) * 0.055;
+          modelGroupRef.current.rotation.x += (parallaxTargetRef.current.x - modelGroupRef.current.rotation.x) * 0.055;
         }
       }
 
-      // Dynamic ground contact shadow breathing
+      // Ground contact shadow (static if reduced motion, dynamic otherwise)
       if (shadowMeshRef.current && isLoadedRef.current) {
-        const shadowScale = 1 - floatOffset * 0.5;
-        shadowMeshRef.current.scale.set(shadowScale, shadowScale, shadowScale);
-        shadowMeshRef.current.material.opacity = 0.65 - floatOffset * 0.35;
+        if (!prefersReducedMotion) {
+          const shadowScale = 1 - floatOffset * 0.5;
+          shadowMeshRef.current.scale.set(shadowScale, shadowScale, shadowScale);
+          shadowMeshRef.current.material.opacity = 0.65 - floatOffset * 0.35;
+        } else {
+          shadowMeshRef.current.scale.set(1, 1, 1);
+          shadowMeshRef.current.material.opacity = 0.65;
+        }
       }
 
       controls.update();

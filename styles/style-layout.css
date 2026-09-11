@@ -204,7 +204,7 @@
   top: var(--nav-height);
   left: 0;
   right: 0;
-  height: calc(100vh - var(--nav-height));
+  height: calc(100dvh - var(--nav-height));
   background: var(--bg-primary);
   border-top: 1px solid var(--border-subtle);
   transform: translateY(-100%);
@@ -222,7 +222,7 @@
 }
 
 .nav__drawer-inner {
-  padding: var(--space-xl) var(--space-lg);
+  padding: var(--space-xl) var(--space-lg) max(var(--space-2xl), env(safe-area-inset-bottom, 24px));
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -376,7 +376,7 @@
 .hero__title {
   font-size: clamp(2.5rem, 6vw, 4.25rem);
   font-weight: 800;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   line-height: 1.1;
   margin-bottom: var(--space-xs);
 }

@@ -118,6 +118,9 @@ const Portfolio = () => {
 
   return (
     <>
+      <a href="#projects" className="skip-link">
+        Skip to main content
+      </a>
       <header role="banner">
         <Navigation
           isOpen={navOpen}
