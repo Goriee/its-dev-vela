@@ -1,26 +1,55 @@
 /*
-====================================
-  Animations & Effects
-====================================
+================================================================================
+  ANIMATIONS & MOTION
+================================================================================
 */
-/* Reveal Animation for Scroll */
+
+/* Scroll Reveal Base */
 .reveal {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  filter: blur(8px);
-  pointer-events: none;
-  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1),
-              transform 0.8s cubic-bezier(0.4,0,0.2,1),
-              filter 0.8s cubic-bezier(0.4,0,0.2,1);
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
+
 .reveal-visible {
   opacity: 1;
-  transform: none;
-  filter: blur(0);
-  pointer-events: auto;
+  transform: translateY(0);
 }
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.18); }
-  100% { transform: scale(1); }
+
+/* Keyframe Animations */
+@keyframes shimmer {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .project-modal,
+  .toast-notification,
+  .nav__drawer {
+    animation: none !important;
+    transition: none !important;
+  }
 }

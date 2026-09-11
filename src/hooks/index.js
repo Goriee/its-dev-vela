@@ -1,6 +1,74 @@
 import { useState, useEffect, useCallback } from 'react';
 
 /**
+ * Custom hook for managing dark and light theme
+ */
+export const useTheme = (defaultTheme = 'dark') => {
+  const [theme, setTheme] = useState(() => {
+    try {
+      const savedTheme = localStorage.getItem('portfolio-theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        return savedTheme;
+      }
+    } catch {
+      // Fallback
+    }
+    return defaultTheme;
+  });
+
+  useEffect(() => {
+    try {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('portfolio-theme', theme);
+    } catch {
+      // Storage might be disabled
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
+
+  return { theme, toggleTheme, isDark: theme === 'dark' };
+};
+
+/**
+ * Custom hook for active section scrollspy
+ */
+export const useScrollSpy = (sectionIds, offset = 120) => {
+  const [activeSection, setActiveSection] = useState(sectionIds[0] || '');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + offset;
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const element = document.getElementById(id);
+        if (element) {
+          const top = element.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(id);
+            return;
+          }
+        }
+      }
+
+      if (window.scrollY < 100 && sectionIds.length > 0) {
+        setActiveSection(sectionIds[0]);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sectionIds, offset]);
+
+  return activeSection;
+};
+
+/**
  * Custom hook for handling click outside of referenced elements
  */
 export const useClickOutside = (refs, callback) => {
@@ -23,7 +91,7 @@ export const useClickOutside = (refs, callback) => {
 /**
  * Custom hook for scroll detection
  */
-export const useScrollDetection = (threshold = 100) => {
+export const useScrollDetection = (threshold = 80) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -43,9 +111,17 @@ export const useScrollDetection = (threshold = 100) => {
  */
 export const useScrollReveal = (selectors, options = {}) => {
   useEffect(() => {
+    // Respect user's reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll(selectors).forEach(el => {
+        el.classList.add('reveal-visible');
+      });
+      return;
+    }
+
     const defaultOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.05,
+      rootMargin: '100px 0px 50px 0px',
       ...options
     };
 
@@ -55,8 +131,6 @@ export const useScrollReveal = (selectors, options = {}) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('reveal-visible');
-        } else {
-          entry.target.classList.remove('reveal-visible');
         }
       });
     }, defaultOptions);
@@ -78,10 +152,19 @@ export const useScrollReveal = (selectors, options = {}) => {
 export const useSmoothScroll = () => {
   const scrollTo = useCallback((targetId, callback) => {
     return (e) => {
-      e.preventDefault();
+      if (e && e.preventDefault) {
+        e.preventDefault();
+      }
       const target = document.querySelector(targetId);
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+        const navOffset = 70;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
         callback?.();
       }
     };
@@ -95,9 +178,19 @@ export const useSmoothScroll = () => {
  */
 export const useBodyScrollLock = (isLocked) => {
   useEffect(() => {
-    document.body.style.overflow = isLocked ? 'hidden' : '';
+    if (isLocked) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      if (scrollBarWidth > 0) {
+        document.body.style.paddingRight = `${scrollBarWidth}px`;
+      }
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
     return () => {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [isLocked]);
 };

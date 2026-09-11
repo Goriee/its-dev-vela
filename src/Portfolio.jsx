@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import '../styles/style-base.css';
 import '../styles/style-layout.css';
 import '../styles/style-components.css';
@@ -12,14 +12,18 @@ import HeroSection from './components/HeroSection/HeroSection';
 import AboutSection from './components/AboutSection/AboutSection';
 import EducationSection from './components/EducationSection/EducationSection';
 import ProjectsSection from './components/ProjectsSection/ProjectsSection';
+import ProjectModal from './components/ProjectModal/ProjectModal';
 import ContactSection from './components/ContactSection/ContactSection';
 import Footer from './components/Footer/Footer';
+import Toast from './components/Toast/Toast';
 
 // Constants
 import { TRANSLATIONS } from './constants/translations';
 
 // Custom Hooks
 import {
+  useTheme,
+  useScrollSpy,
   useClickOutside,
   useScrollDetection,
   useScrollReveal,
@@ -28,11 +32,22 @@ import {
   useDocumentTitle
 } from './hooks';
 
+const SECTION_IDS = ['hero', 'about', 'projects', 'education', 'contact'];
+
 const Portfolio = () => {
+  // Theme management hook
+  const { theme, toggleTheme } = useTheme('dark');
+
   // State
   const [navOpen, setNavOpen] = useState(false);
   const [translateOpen, setTranslateOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('en');
+  const [modalProject, setModalProject] = useState(null);
+  const [toast, setToast] = useState({
+    isVisible: false,
+    message: '',
+    type: 'success'
+  });
 
   // Refs
   const navToggleRef = useRef(null);
@@ -40,16 +55,17 @@ const Portfolio = () => {
   const translateButtonRef = useRef(null);
   const translateDropdownRef = useRef(null);
 
-  // Get current translations
-  const t = TRANSLATIONS[currentLang];
+  // Current translations
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   // Custom hooks
-  const isScrolled = useScrollDetection(100);
+  const isScrolled = useScrollDetection(60);
+  const activeSection = useScrollSpy(SECTION_IDS, 100);
   const scrollTo = useSmoothScroll();
   
   useDocumentTitle(t.title);
-  useBodyScrollLock(navOpen);
-  useScrollReveal('.hero, .about, .education, .project, .contact');
+  useBodyScrollLock(navOpen || !!modalProject);
+  useScrollReveal('.about__card, .project-card, .education__item, .contact__info-card, .contact__form-card');
 
   // Click outside handlers
   useClickOutside([navToggleRef, navListRef], () => {
@@ -60,9 +76,8 @@ const Portfolio = () => {
     if (translateOpen) setTranslateOpen(false);
   });
 
-  // Handlers
+  // Navigation handlers
   const handleNavToggle = () => setNavOpen(prev => !prev);
-  
   const handleNavClose = () => setNavOpen(false);
 
   const handleTranslateToggle = (e) => {
@@ -75,23 +90,46 @@ const Portfolio = () => {
     setTranslateOpen(false);
   };
 
-  const handleNavigate = scrollTo;
-
   const handleSmoothScroll = (e, targetId) => {
     scrollTo(targetId, handleNavClose)(e);
   };
 
+  // Toast helper
+  const showToast = useCallback((message, type = 'success') => {
+    setToast({
+      isVisible: true,
+      message,
+      type
+    });
+  }, []);
+
+  const closeToast = useCallback(() => {
+    setToast(prev => ({ ...prev, isVisible: false }));
+  }, []);
+
+  // Modal handlers
+  const handleOpenModal = useCallback((project) => {
+    setModalProject(project);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setModalProject(null);
+  }, []);
+
   return (
     <>
-      <header className="header" role="banner">
+      <header role="banner">
         <Navigation
           isOpen={navOpen}
           isScrolled={isScrolled}
+          activeSection={activeSection}
           onToggle={handleNavToggle}
           onNavigate={handleSmoothScroll}
           navToggleRef={navToggleRef}
           navListRef={navListRef}
           translations={t}
+          theme={theme}
+          onToggleTheme={toggleTheme}
         >
           <LanguageSelector
             isOpen={translateOpen}
@@ -108,14 +146,37 @@ const Portfolio = () => {
         <HeroSection 
           translations={t} 
           onNavigate={handleSmoothScroll} 
+          onCopyEmail={showToast}
         />
         <AboutSection translations={t} />
+        <ProjectsSection 
+          translations={t} 
+          onOpenModal={handleOpenModal}
+        />
         <EducationSection translations={t} />
-        <ProjectsSection translations={t} />
-        <ContactSection translations={t} />
+        <ContactSection 
+          translations={t} 
+          onShowToast={showToast}
+        />
       </main>
 
       <Footer translations={t} />
+
+      {/* Interactive Project Quick View Modal */}
+      <ProjectModal
+        isOpen={!!modalProject}
+        project={modalProject}
+        onClose={handleCloseModal}
+        translations={t}
+      />
+
+      {/* Accessible Toast Notification */}
+      <Toast
+        isVisible={toast.isVisible}
+        message={toast.message}
+        type={toast.type}
+        onClose={closeToast}
+      />
     </>
   );
 };

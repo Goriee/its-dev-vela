@@ -1,5 +1,8 @@
 export { default as Navigation } from './Navigation/Navigation';
 export { default as LanguageSelector } from './LanguageSelector/LanguageSelector';
+export { default as ThemeToggle } from './ThemeToggle/ThemeToggle';
+export { default as Toast } from './Toast/Toast';
+export { default as ProjectModal } from './ProjectModal/ProjectModal';
 export { default as HeroSection } from './HeroSection/HeroSection';
 export { default as AboutSection } from './AboutSection/AboutSection';
 export { default as EducationSection } from './EducationSection/EducationSection';
