@@ -14,7 +14,7 @@ const ProjectsSection = ({ translations, onOpenModal }) => {
     <section id="projects" className="projects" aria-labelledby="projects-heading">
       <div className="section-container">
         <div className="section-header">
-          <span className="section-eyebrow">Portfolio</span>
+          <span className="section-eyebrow">Selected Works</span>
           <h2 id="projects-heading" className="section-title">
             {translations.projectsHeading}
           </h2>

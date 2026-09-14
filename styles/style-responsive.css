@@ -35,10 +35,6 @@
     justify-content: center;
   }
 
-  .hero__content-col .hero__tech-strip {
-    justify-content: center;
-  }
-
   .hero__model-col {
     max-width: 520px;
     margin: 0 auto;
@@ -123,6 +119,14 @@
   }
 
   .hero__social-list {
+    gap: var(--space-xs);
+  }
+
+  .hero__tech-strip {
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-md);
+    flex-direction: column;
+    text-align: center;
     gap: var(--space-xs);
   }
 

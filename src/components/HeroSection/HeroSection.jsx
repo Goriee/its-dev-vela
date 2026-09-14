@@ -62,9 +62,8 @@ const HeroSection = ({
           </div>
 
           <div className="hero__heading-group">
-            <p className="hero__greeting">Hello, I&apos;m</p>
             <h1 id="hero-title" className="hero__title">
-              <span className="hero__title-accent">Dev Vela</span>
+              Dev Vela
             </h1>
             <p className="hero__subtitle">{translations.heroSubtitle}</p>
           </div>
@@ -142,23 +141,23 @@ const HeroSection = ({
               ))}
             </ul>
           </div>
-
-          <div className="hero__tech-strip" aria-label="Core technologies">
-            <span className="hero__tech-label">Core Technologies:</span>
-            <div className="hero__tech-list">
-              {TECH_STACK.slice(0, 7).map(({ name }) => (
-                <span key={name} className="hero__tech-pill">
-                  {name}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
 
         <div className="hero__model-col" aria-label="Interactive 3D Experience">
           <Suspense fallback={<ModelViewerSkeleton />}>
             <ModelViewer3D modelUrl="/models/mymodel.glb" />
           </Suspense>
+        </div>
+      </div>
+
+      <div className="hero__tech-strip" aria-label="Core technologies">
+        <span className="hero__tech-label">Core Technologies:</span>
+        <div className="hero__tech-list">
+          {TECH_STACK.map(({ name }) => (
+            <span key={name} className="hero__tech-pill">
+              {name}
+            </span>
+          ))}
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ const AboutSection = ({ translations }) => {
     <section id="about" className="about" aria-labelledby="about-heading">
       <div className="section-container">
         <div className="section-header">
-          <span className="section-eyebrow">Profile & Mission</span>
+          <span className="section-eyebrow">Profile & Focus</span>
           <h2 id="about-heading" className="section-title">
             {translations.aboutHeading}
           </h2>

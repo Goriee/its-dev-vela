@@ -113,7 +113,7 @@ const ContactSection = ({ translations, onShowToast }) => {
     <section id="contact" className="contact" aria-labelledby="contact-heading">
       <div className="section-container">
         <div className="section-header">
-          <span className="section-eyebrow">Get In Touch</span>
+          <span className="section-eyebrow">Contact & Inquiries</span>
           <h2 id="contact-heading" className="section-title">
             {translations.contactHeading}
           </h2>
