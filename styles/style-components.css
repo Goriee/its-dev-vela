@@ -181,10 +181,6 @@
   box-shadow: var(--shadow-lg), 0 0 24px var(--accent-glow);
 }
 
-.project-card:focus-within {
-  border-color: var(--border-highlight);
-}
-
 .project-card__media {
   position: relative;
   width: 100%;
