@@ -67,18 +67,15 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
-    // 1. Scene
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // 2. Camera
     const width = container.clientWidth || 400;
     const height = container.clientHeight || 400;
     const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
     camera.position.set(0, 0.35, 2.3);
     cameraRef.current = camera;
 
-    // 3. Renderer with high-DPI support and transparency
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
@@ -92,7 +89,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     renderer.toneMappingExposure = 1.15;
     rendererRef.current = renderer;
 
-    // 4. OrbitControls
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
@@ -114,26 +110,21 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     });
     controlsRef.current = controls;
 
-    // 5. Lighting Setup (Cyberpunk / Modern Developer Studio)
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
     scene.add(ambientLight);
 
-    // Key Light (warm white / violet)
     const keyLight = new THREE.DirectionalLight(0xf8fafc, 2.2);
     keyLight.position.set(4, 6, 4);
     scene.add(keyLight);
 
-    // Fill Light (cyan / blue)
     const fillLight = new THREE.DirectionalLight(0x38bdf8, 1.6);
     fillLight.position.set(-5, 2, -2);
     scene.add(fillLight);
 
-    // Rim / Edge Light (tech azure accent)
     const rimLight = new THREE.DirectionalLight(0x0284c7, 2.0);
     rimLight.position.set(0, -3, -4);
     scene.add(rimLight);
 
-    // 5b. Ground Contact Shadow (Soft Radial Falloff)
     const createShadowTexture = () => {
       const sCanvas = document.createElement('canvas');
       sCanvas.width = 128;
@@ -166,7 +157,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     scene.add(shadowMesh);
     shadowMeshRef.current = shadowMesh;
 
-    // 6. Model Loader with MeshoptDecoder
     const modelGroup = new THREE.Group();
     modelGroup.rotation.y = -Math.PI / 2;
     scene.add(modelGroup);
@@ -222,7 +212,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       }
     );
 
-    // 7. Responsive Resize Observer
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width: newWidth, height: newHeight } = entry.contentRect;
@@ -235,7 +224,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     });
     resizeObserver.observe(container);
 
-    // 8. Intersection Observer to pause loop when off-screen
     const intersectionObserver = new IntersectionObserver(
       (entries) => {
         isVisibleRef.current = entries[0]?.isIntersecting ?? true;
@@ -244,7 +232,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     );
     intersectionObserver.observe(container);
 
-    // 8b. Desktop Mouse Parallax (Bypassed if user prefers reduced motion)
     const prefersReducedMotion = typeof window !== 'undefined' && 
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -273,7 +260,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       container.addEventListener('mouseleave', handleMouseLeave);
     }
 
-    // 9. Animation Loop
     let clock = new THREE.Clock();
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
@@ -282,21 +268,17 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
 
       const elapsedTime = clock.getElapsedTime();
       
-      // Floating physics (only if motion is enabled)
       const floatOffset = prefersReducedMotion ? 0 : Math.sin(elapsedTime * 1.5) * 0.04;
 
-      // Model orientation and positioning
       if (modelGroupRef.current && isLoadedRef.current) {
         modelGroupRef.current.position.y = floatOffset;
 
-        // Subtle desktop parallax tilt when not user-interacting or auto-rotating
         if (!prefersReducedMotion && !userInteractingRef.current && !autoRotateRef.current) {
           modelGroupRef.current.rotation.y += (parallaxTargetRef.current.y - modelGroupRef.current.rotation.y) * 0.055;
           modelGroupRef.current.rotation.x += (parallaxTargetRef.current.x - modelGroupRef.current.rotation.x) * 0.055;
         }
       }
 
-      // Ground contact shadow (static if reduced motion, dynamic otherwise)
       if (shadowMeshRef.current && isLoadedRef.current) {
         if (!prefersReducedMotion) {
           const shadowScale = 1 - floatOffset * 0.5;
@@ -313,7 +295,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
     };
     animate();
 
-    // 10. Cleanup
     return () => {
       if (animFrameIdRef.current) {
         cancelAnimationFrame(animFrameIdRef.current);
@@ -326,12 +307,10 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       }
       controls.dispose();
 
-      // Dispose shadow resources
       shadowGeo.dispose();
       shadowTex.dispose();
       shadowMat.dispose();
 
-      // Dispose Three.js objects
       if (modelGroupRef.current) {
         modelGroupRef.current.traverse((child) => {
           if (child.isMesh) {
@@ -351,13 +330,9 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
 
   return (
     <div className={`model-viewer ${className}`} ref={containerRef} aria-label="3D Interactive Model Viewer">
-      {/* Background ambient lighting pulse */}
       <div className="model-viewer__glow" aria-hidden="true" />
-
-      {/* 3D WebGL Canvas */}
       <canvas ref={canvasRef} className="model-viewer__canvas" />
 
-      {/* Loading Screen with Progress Bar */}
       {!isLoaded && !loadError && (
         <div className="model-viewer__loader" role="status" aria-live="polite">
           <div className="model-viewer__loader-spinner" />
@@ -372,7 +347,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
         </div>
       )}
 
-      {/* Error Fallback */}
       {loadError && (
         <div className="model-viewer__error" role="alert">
           <span className="model-viewer__error-icon">⚠️</span>
@@ -380,7 +354,6 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
         </div>
       )}
 
-      {/* Floating Interactive Controls Bar */}
       {isLoaded && (
         <div className="model-viewer__controls" aria-label="3D Viewer Controls">
           <div className="model-viewer__hint">

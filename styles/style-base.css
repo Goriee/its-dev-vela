@@ -1,8 +1,4 @@
-/*
-================================================================================
-  DESIGN SYSTEM TOKENS & BASE RESETS
-================================================================================
-*/
+/* Design tokens and base resets */
 
 :root {
   /* Typography */
@@ -53,9 +49,7 @@
   --nav-height: 72px;
 }
 
-/* ====================================
-   DARK THEME (Default)
-==================================== */
+/* Dark theme (default) */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
@@ -92,9 +86,7 @@
   --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.18);
 }
 
-/* ====================================
-   LIGHT THEME
-==================================== */
+/* Light theme */
 [data-theme="light"] {
   color-scheme: light;
   --bg-primary: #f8fafc;
@@ -130,9 +122,7 @@
   --shadow-glow: 0 0 25px rgba(2, 132, 199, 0.12);
 }
 
-/* ====================================
-   BASE RESETS
-==================================== */
+/* Base resets */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -218,9 +208,7 @@ ul, ol {
   border-radius: var(--radius-xs);
 }
 
-/* ====================================
-   SHARED UTILITIES & SECTION HEADERS
-==================================== */
+/* Shared utilities & section headers */
 .section-container {
   width: 100%;
   max-width: var(--container-max);

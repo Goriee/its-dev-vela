@@ -51,20 +51,16 @@ const HeroSection = ({
 
   return (
     <section id="hero" className="hero" aria-labelledby="hero-title">
-      {/* Background ambient lighting */}
       <div className="hero__ambient-glow" aria-hidden="true" />
       <div className="hero__grid-pattern" aria-hidden="true" />
 
       <div className="hero__container hero__container--2col">
-        {/* Left Column: Textual Identity & Actions */}
         <div className="hero__content-col">
-          {/* Availability Badge */}
           <div className="hero__badge">
             <span className="hero__badge-pulse" aria-hidden="true" />
             <span className="hero__badge-text">{translations.availableBadge}</span>
           </div>
 
-          {/* Hero Title & Identity */}
           <div className="hero__heading-group">
             <p className="hero__greeting">Hello, I&apos;m</p>
             <h1 id="hero-title" className="hero__title">
@@ -73,10 +69,8 @@ const HeroSection = ({
             <p className="hero__subtitle">{translations.heroSubtitle}</p>
           </div>
 
-          {/* Narrative bio */}
           <p className="hero__desc">{translations.heroDesc}</p>
 
-          {/* Action Button Group */}
           <div className="hero__actions">
             <a
               href="#projects"
@@ -131,7 +125,6 @@ const HeroSection = ({
             </button>
           </div>
 
-          {/* Social Links */}
           <div className="hero__social" aria-label="Social profiles">
             <ul className="hero__social-list">
               {SOCIAL_LINKS.map(({ id, url, label }) => (
@@ -150,7 +143,6 @@ const HeroSection = ({
             </ul>
           </div>
 
-          {/* Tech Stack Pills Strip */}
           <div className="hero__tech-strip" aria-label="Core technologies">
             <span className="hero__tech-label">Core Technologies:</span>
             <div className="hero__tech-list">
@@ -163,7 +155,6 @@ const HeroSection = ({
           </div>
         </div>
 
-        {/* Right Column: 3D Interactive Model Showcase (Lazy Loaded) */}
         <div className="hero__model-col" aria-label="Interactive 3D Experience">
           <Suspense fallback={<ModelViewerSkeleton />}>
             <ModelViewer3D modelUrl="/models/mymodel.glb" />

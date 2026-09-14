@@ -112,7 +112,6 @@ const ContactSection = ({ translations, onShowToast }) => {
   return (
     <section id="contact" className="contact" aria-labelledby="contact-heading">
       <div className="section-container">
-        {/* Section Header */}
         <div className="section-header">
           <span className="section-eyebrow">Get In Touch</span>
           <h2 id="contact-heading" className="section-title">
@@ -124,7 +123,6 @@ const ContactSection = ({ translations, onShowToast }) => {
         </div>
 
         <div className="contact__layout">
-          {/* Left Column: Direct info & social cards */}
           <div className="contact__info-card">
             <h3 className="contact__info-title">{translations.directContact}</h3>
             <p className="contact__info-desc">{translations.responseTime}</p>
@@ -192,7 +190,6 @@ const ContactSection = ({ translations, onShowToast }) => {
               </div>
             </div>
 
-            {/* Social profiles list */}
             <div className="contact__socials">
               <span className="contact__socials-label">Social Platforms</span>
               <div className="contact__socials-list">
@@ -212,7 +209,6 @@ const ContactSection = ({ translations, onShowToast }) => {
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
           <div className="contact__form-card">
             <form 
               className="contact__form" 

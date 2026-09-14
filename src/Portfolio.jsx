@@ -5,7 +5,6 @@ import '../styles/style-components.css';
 import '../styles/style-animations.css';
 import '../styles/style-responsive.css';
 
-// Components
 import Navigation from './components/Navigation/Navigation';
 import LanguageSelector from './components/LanguageSelector/LanguageSelector';
 import HeroSection from './components/HeroSection/HeroSection';
@@ -17,10 +16,8 @@ import ContactSection from './components/ContactSection/ContactSection';
 import Footer from './components/Footer/Footer';
 import Toast from './components/Toast/Toast';
 
-// Constants
 import { TRANSLATIONS } from './constants/translations';
 
-// Custom Hooks
 import {
   useTheme,
   useScrollSpy,
@@ -35,10 +32,8 @@ import {
 const SECTION_IDS = ['hero', 'about', 'projects', 'education', 'contact'];
 
 const Portfolio = () => {
-  // Theme management hook
   const { theme, toggleTheme } = useTheme('dark');
 
-  // State
   const [navOpen, setNavOpen] = useState(false);
   const [translateOpen, setTranslateOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('en');
@@ -49,16 +44,13 @@ const Portfolio = () => {
     type: 'success'
   });
 
-  // Refs
   const navToggleRef = useRef(null);
   const navListRef = useRef(null);
   const translateButtonRef = useRef(null);
   const translateDropdownRef = useRef(null);
 
-  // Current translations
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
-  // Custom hooks
   const isScrolled = useScrollDetection(60);
   const activeSection = useScrollSpy(SECTION_IDS, 100);
   const scrollTo = useSmoothScroll();
@@ -67,7 +59,6 @@ const Portfolio = () => {
   useBodyScrollLock(navOpen || !!modalProject);
   useScrollReveal('.about__card, .project-card, .education__item, .contact__info-card, .contact__form-card');
 
-  // Click outside handlers
   useClickOutside([navToggleRef, navListRef], () => {
     if (navOpen) setNavOpen(false);
   });
@@ -76,7 +67,6 @@ const Portfolio = () => {
     if (translateOpen) setTranslateOpen(false);
   });
 
-  // Navigation handlers
   const handleNavToggle = () => setNavOpen(prev => !prev);
   const handleNavClose = () => setNavOpen(false);
 
@@ -94,7 +84,6 @@ const Portfolio = () => {
     scrollTo(targetId, handleNavClose)(e);
   };
 
-  // Toast helper
   const showToast = useCallback((message, type = 'success') => {
     setToast({
       isVisible: true,
@@ -107,7 +96,6 @@ const Portfolio = () => {
     setToast(prev => ({ ...prev, isVisible: false }));
   }, []);
 
-  // Modal handlers
   const handleOpenModal = useCallback((project) => {
     setModalProject(project);
   }, []);
@@ -165,7 +153,6 @@ const Portfolio = () => {
 
       <Footer translations={t} />
 
-      {/* Interactive Project Quick View Modal */}
       <ProjectModal
         isOpen={!!modalProject}
         project={modalProject}
@@ -173,7 +160,6 @@ const Portfolio = () => {
         translations={t}
       />
 
-      {/* Accessible Toast Notification */}
       <Toast
         isVisible={toast.isVisible}
         message={toast.message}

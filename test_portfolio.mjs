@@ -57,7 +57,12 @@ async function runTests() {
   await page.evaluate(async () => {
     const distance = 400;
     const delay = 40;
-    while (document.scrollingElement.scrollTop + window.innerHeight < document.scrollingElement.scrollHeight) {
+    let prevTop = -1;
+    while (
+      document.scrollingElement.scrollTop + window.innerHeight < document.scrollingElement.scrollHeight - 10 &&
+      document.scrollingElement.scrollTop !== prevTop
+    ) {
+      prevTop = document.scrollingElement.scrollTop;
       document.scrollingElement.scrollBy(0, distance);
       await new Promise(resolve => setTimeout(resolve, delay));
     }

@@ -7,7 +7,6 @@ const ProjectCard = ({ project, translations, onOpenModal }) => {
 
   return (
     <article className="project-card">
-      {/* Thumbnail Container */}
       <div className="project-card__media">
         <img
           src={project.image}
@@ -19,7 +18,6 @@ const ProjectCard = ({ project, translations, onOpenModal }) => {
         />
         <div className="project-card__overlay" aria-hidden="true" />
         
-        {/* Quick View Button on Image */}
         <button
           type="button"
           className="project-card__quick-btn"
@@ -34,9 +32,7 @@ const ProjectCard = ({ project, translations, onOpenModal }) => {
         </button>
       </div>
 
-      {/* Card Body */}
       <div className="project-card__body">
-        {/* Tag list */}
         <div className="project-card__tags">
           {project.tags?.slice(0, 3).map((tag) => (
             <span key={tag} className="tag-chip tag-chip--subtle">
@@ -57,7 +53,6 @@ const ProjectCard = ({ project, translations, onOpenModal }) => {
 
         <p className="project-card__desc">{description}</p>
 
-        {/* Card Footer Actions */}
         <div className="project-card__actions">
           <button
             type="button"

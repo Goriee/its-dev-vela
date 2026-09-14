@@ -1,12 +1,6 @@
-/*
-================================================================================
-  RESPONSIVE DESIGN & BREAKPOINTS
-================================================================================
-*/
+/* Responsive Design & Breakpoints */
 
-/* ====================================
-   TABLETS & MEDIUM SCREENS (<= 1024px)
-==================================== */
+/* Tablets & Medium Screens (<= 1024px) */
 @media (max-width: 1024px) {
   :root {
     --space-4xl: 4.5rem;
@@ -52,9 +46,7 @@
   }
 }
 
-/* ====================================
-   TABLETS & MOBILE NAVIGATION SWITCH (<= 860px)
-==================================== */
+/* Tablets & Mobile Navigation Switch (<= 860px) */
 @media (max-width: 860px) {
   .nav__desktop {
     display: none;
@@ -86,9 +78,7 @@
   }
 }
 
-/* ====================================
-   MOBILE PHONES (<= 640px)
-==================================== */
+/* Mobile Phones (<= 640px) */
 @media (max-width: 640px) {
   :root {
     --nav-height: 64px;

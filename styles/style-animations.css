@@ -1,8 +1,4 @@
-/*
-================================================================================
-  ANIMATIONS & MOTION
-================================================================================
-*/
+/* Animations & Motion */
 
 /* Scroll Reveal Base */
 .reveal {
@@ -16,18 +12,6 @@
 .reveal-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Keyframe Animations */
-@keyframes shimmer {
-  0% { opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { opacity: 0.8; }
-}
-
-@keyframes pulse-subtle {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
 }
 
 /* Hero Staged Entrance Choreography */

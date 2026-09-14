@@ -5,7 +5,6 @@ const ProjectModal = ({ isOpen, onClose, project, translations }) => {
   const modalRef = useRef(null);
   const closeButtonRef = useRef(null);
 
-  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isOpen) {

@@ -6,7 +6,6 @@ const AboutSection = ({ translations }) => {
   return (
     <section id="about" className="about" aria-labelledby="about-heading">
       <div className="section-container">
-        {/* Section Header */}
         <div className="section-header">
           <span className="section-eyebrow">Profile & Mission</span>
           <h2 id="about-heading" className="section-title">
@@ -17,9 +16,7 @@ const AboutSection = ({ translations }) => {
           </p>
         </div>
 
-        {/* Bento Grid Layout */}
         <div className="about__bento">
-          {/* Main Profile & Bio Card */}
           <div className="about__card about__card--profile">
             <div className="about__profile-header">
               <div className="about__avatar-wrapper">
@@ -42,7 +39,6 @@ const AboutSection = ({ translations }) => {
 
             <p className="about__bio-text">{translations.aboutText}</p>
 
-            {/* Quick Stats Strip */}
             <div className="about__stats-grid">
               <div className="about__stat">
                 <span className="about__stat-value">{translations.yearsExperience}</span>
@@ -59,7 +55,6 @@ const AboutSection = ({ translations }) => {
             </div>
           </div>
 
-          {/* Pillar Card 1: Backend Architecture */}
           <div className="about__card about__card--pillar">
             <div className="about__pillar-icon about__pillar-icon--backend" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -79,7 +74,6 @@ const AboutSection = ({ translations }) => {
             </div>
           </div>
 
-          {/* Pillar Card 2: Web3 & Gaming */}
           <div className="about__card about__card--pillar">
             <div className="about__pillar-icon about__pillar-icon--web3" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -98,7 +92,6 @@ const AboutSection = ({ translations }) => {
             </div>
           </div>
 
-          {/* Pillar Card 3: Market & Data Systems */}
           <div className="about__card about__card--pillar">
             <div className="about__pillar-icon about__pillar-icon--trading" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

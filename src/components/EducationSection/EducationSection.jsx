@@ -6,7 +6,6 @@ const EducationSection = ({ translations }) => {
   return (
     <section id="education" className="education" aria-labelledby="education-heading">
       <div className="section-container">
-        {/* Section Header */}
         <div className="section-header">
           <span className="section-eyebrow">Academic Path</span>
           <h2 id="education-heading" className="section-title">
@@ -17,7 +16,6 @@ const EducationSection = ({ translations }) => {
           </p>
         </div>
 
-        {/* Vertical Timeline */}
         <div className="education__timeline">
           <div className="education__timeline-line" aria-hidden="true" />
 
@@ -30,12 +28,10 @@ const EducationSection = ({ translations }) => {
 
               return (
                 <li key={index} className="education__item">
-                  {/* Timeline Marker Node */}
                   <div className="education__node" aria-hidden="true">
                     <span className="education__node-inner" />
                   </div>
 
-                  {/* Card Content */}
                   <div className="education__card">
                     <div className="education__card-header">
                       <time className="education__year-badge">{year}</time>

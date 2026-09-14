@@ -1,8 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 
-/**
- * Custom hook for managing dark and light theme
- */
 export const useTheme = (defaultTheme = 'dark') => {
   const [theme, setTheme] = useState(() => {
     try {
@@ -32,9 +29,6 @@ export const useTheme = (defaultTheme = 'dark') => {
   return { theme, toggleTheme, isDark: theme === 'dark' };
 };
 
-/**
- * Custom hook for active section scrollspy
- */
 export const useScrollSpy = (sectionIds, offset = 120) => {
   const [activeSection, setActiveSection] = useState(sectionIds[0] || '');
 
@@ -60,7 +54,7 @@ export const useScrollSpy = (sectionIds, offset = 120) => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sectionIds, offset]);
@@ -68,9 +62,6 @@ export const useScrollSpy = (sectionIds, offset = 120) => {
   return activeSection;
 };
 
-/**
- * Custom hook for handling click outside of referenced elements
- */
 export const useClickOutside = (refs, callback) => {
   useEffect(() => {
     const handleClick = (event) => {
@@ -88,9 +79,6 @@ export const useClickOutside = (refs, callback) => {
   }, [refs, callback]);
 };
 
-/**
- * Custom hook for scroll detection
- */
 export const useScrollDetection = (threshold = 80) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -106,12 +94,8 @@ export const useScrollDetection = (threshold = 80) => {
   return isScrolled;
 };
 
-/**
- * Custom hook for scroll reveal animations with Intersection Observer
- */
 export const useScrollReveal = (selectors, options = {}) => {
   useEffect(() => {
-    // Respect user's reduced motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.querySelectorAll(selectors).forEach(el => {
         el.classList.add('reveal-visible');
@@ -146,9 +130,6 @@ export const useScrollReveal = (selectors, options = {}) => {
   }, [selectors, options]);
 };
 
-/**
- * Custom hook for smooth scrolling to sections
- */
 export const useSmoothScroll = () => {
   const scrollTo = useCallback((targetId, callback) => {
     return (e) => {
@@ -173,9 +154,6 @@ export const useSmoothScroll = () => {
   return scrollTo;
 };
 
-/**
- * Custom hook for managing body scroll lock
- */
 export const useBodyScrollLock = (isLocked) => {
   useEffect(() => {
     if (isLocked) {
@@ -195,9 +173,6 @@ export const useBodyScrollLock = (isLocked) => {
   }, [isLocked]);
 };
 
-/**
- * Custom hook for document title management
- */
 export const useDocumentTitle = (title) => {
   useEffect(() => {
     if (title) {

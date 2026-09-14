@@ -1,12 +1,6 @@
-/*
-================================================================================
-  LAYOUT & SECTION STYLES
-================================================================================
-*/
+/* Layout & Section Styles */
 
-/* ====================================
-   HEADER & NAVIGATION
-==================================== */
+/* Header & Navigation */
 .nav {
   position: fixed;
   top: 0;
@@ -78,14 +72,6 @@
   height: 8px;
   border-radius: 50%;
   background-color: var(--status-success);
-  box-shadow: 0 0 8px var(--status-success);
-  animation: pulse-dot 2s infinite;
-}
-
-@keyframes pulse-dot {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
 /* Desktop Navigation */
@@ -128,7 +114,7 @@
 
 .nav__link--resume {
   color: var(--accent);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  border: 1px solid var(--border-highlight);
   font-weight: 600;
   padding: 0.35rem 0.85rem;
 }
@@ -251,9 +237,7 @@
   color: var(--accent);
 }
 
-/* ====================================
-   HERO SECTION
-==================================== */
+/* Hero Section */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -272,7 +256,7 @@
   transform: translate(-50%, -50%);
   width: 600px;
   height: 400px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(56, 189, 248, 0.04) 50%, transparent 70%);
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
@@ -353,7 +337,6 @@
   height: 8px;
   border-radius: 50%;
   background-color: var(--status-success);
-  box-shadow: 0 0 6px var(--status-success);
 }
 
 .hero__badge-text {
@@ -488,9 +471,7 @@
   border: 1px solid var(--border-subtle);
 }
 
-/* ====================================
-   ABOUT SECTION (BENTO GRID)
-==================================== */
+/* About Section */
 .about {
   padding: var(--space-4xl) 0;
   position: relative;
@@ -668,9 +649,7 @@
   padding-top: var(--space-xs);
 }
 
-/* ====================================
-   PROJECTS SECTION
-==================================== */
+/* Projects Section */
 .projects {
   padding: var(--space-4xl) 0;
   background-color: var(--bg-secondary);
@@ -715,9 +694,7 @@
   gap: var(--space-xl);
 }
 
-/* ====================================
-   EDUCATION SECTION (TIMELINE)
-==================================== */
+/* Education Section */
 .education {
   padding: var(--space-4xl) 0;
 }
@@ -839,9 +816,7 @@
   gap: 0.4rem;
 }
 
-/* ====================================
-   CONTACT SECTION
-==================================== */
+/* Contact Section */
 .contact {
   padding: var(--space-4xl) 0;
   background-color: var(--bg-secondary);
@@ -1000,9 +975,7 @@
   color: var(--text-muted);
 }
 
-/* ====================================
-   FOOTER
-==================================== */
+/* Footer */
 .footer {
   background-color: var(--bg-primary);
   border-top: 1px solid var(--border-subtle);

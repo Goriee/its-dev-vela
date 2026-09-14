@@ -35,7 +35,6 @@ const Navigation = ({
       aria-label="Main navigation"
     >
       <div className="nav__container">
-        {/* Brand identity */}
         <div className="nav__brand">
           <a 
             href="#hero" 
@@ -49,7 +48,6 @@ const Navigation = ({
           </a>
         </div>
 
-        {/* Desktop Navigation Links */}
         <div className="nav__desktop">
           <ul className="nav__list">
             {NAV_ITEMS.map(({ id, labelKey }) => {
@@ -82,7 +80,6 @@ const Navigation = ({
           </ul>
         </div>
 
-        {/* Controls: Language Selector + Theme Toggle + Mobile Menu Trigger */}
         <div className="nav__controls">
           {children}
           
@@ -108,7 +105,6 @@ const Navigation = ({
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer */}
       <div 
         id="mobile-navigation"
         className={`nav__drawer ${isOpen ? 'nav__drawer--open' : ''}`} 
@@ -142,7 +138,7 @@ const Navigation = ({
                 rel="noopener noreferrer"
                 aria-label="View Resume / CV"
               >
-                {translations.resume || 'Resume'} ↗
+                {translations.resume || 'Resume'}
               </a>
             </li>
           </ul>

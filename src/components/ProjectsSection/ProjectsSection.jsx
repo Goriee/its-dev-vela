@@ -13,7 +13,6 @@ const ProjectsSection = ({ translations, onOpenModal }) => {
   return (
     <section id="projects" className="projects" aria-labelledby="projects-heading">
       <div className="section-container">
-        {/* Section Header */}
         <div className="section-header">
           <span className="section-eyebrow">Portfolio</span>
           <h2 id="projects-heading" className="section-title">
@@ -24,7 +23,6 @@ const ProjectsSection = ({ translations, onOpenModal }) => {
           </p>
         </div>
 
-        {/* Category Filter Pills */}
         <div className="projects__filter-bar" role="tablist" aria-label="Project categories">
           {PROJECT_CATEGORIES.map(({ id, labelKey }) => {
             const isActive = activeCategory === id;
@@ -43,7 +41,6 @@ const ProjectsSection = ({ translations, onOpenModal }) => {
           })}
         </div>
 
-        {/* Projects Grid */}
         <div className="projects__grid">
           {filteredProjects.map((project) => (
             <ProjectCard

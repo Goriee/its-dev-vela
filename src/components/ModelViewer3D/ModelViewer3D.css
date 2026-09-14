@@ -1,6 +1,4 @@
-/* ====================================
-   3D MODEL VIEWER COMPONENT
-==================================== */
+/* 3D Model Viewer Component */
 .model-viewer {
   position: relative;
   width: 100%;
@@ -9,7 +7,7 @@
   border-radius: var(--radius-xl);
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(99, 102, 241, 0.08) 0%,
+    rgba(56, 189, 248, 0.08) 0%,
     var(--bg-surface) 70%
   );
   border: 1px solid var(--border-subtle);
@@ -40,8 +38,8 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(99, 102, 241, 0.18) 0%,
-    rgba(56, 189, 248, 0.12) 40%,
+    rgba(56, 189, 248, 0.16) 0%,
+    rgba(2, 132, 199, 0.08) 40%,
     transparent 70%
   );
   filter: blur(40px);
@@ -245,7 +243,7 @@
 .model-viewer__btn--active {
   background: var(--accent-subtle);
   color: var(--accent);
-  border-color: rgba(99, 102, 241, 0.25);
+  border-color: var(--border-highlight);
 }
 
 .model-viewer__btn:focus-visible {

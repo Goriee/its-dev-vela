@@ -3,7 +3,6 @@ import scraperChatbot from "../assets/scraper-chatbot.png";
 import qrAttendance from "../assets/qr-attendance.svg";
 import ocrAttendance from "../assets/ocr-attendance.svg";
 
-// Core Technology Stack for Hero and Showcase
 export const TECH_STACK = [
   { name: "Node.js", category: "backend" },
   { name: "Express.js", category: "backend" },
@@ -17,7 +16,6 @@ export const TECH_STACK = [
   { name: "Git & GitHub", category: "tools" }
 ];
 
-// Project data structure with enriched metadata
 export const PROJECT_DATA = [
   {
     id: "classroom-reserve",
@@ -46,7 +44,7 @@ export const PROJECT_DATA = [
     highlights: [
       "100% automated hands-free kiosk scanning with multi-angle ID detection (0°, 90°, 180°, 270°)",
       "High-speed Tesseract.js OCR engine with offscreen contrast & grayscale image filtering",
-      "Web Audio API synthesizer (880Hz → 1318Hz) for instant chime confirmation and cooldown protection"
+      "Web Audio API synthesizer (880Hz to 1318Hz) for instant chime confirmation and cooldown protection"
     ]
   },
   {
@@ -81,7 +79,6 @@ export const PROJECT_DATA = [
   }
 ];
 
-// Categories for Project Filtering
 export const PROJECT_CATEGORIES = [
   { id: "all", labelKey: "allProjects" },
   { id: "backend", labelKey: "filterBackend" },
@@ -89,7 +86,6 @@ export const PROJECT_CATEGORIES = [
   { id: "ai", labelKey: "filterAI" }
 ];
 
-// Education timeline data
 export const EDUCATION_DATA = [
   {
     year: "2024 - Present",
@@ -117,7 +113,6 @@ export const EDUCATION_DATA = [
   }
 ];
 
-// Social media links with SVG icon paths
 export const SOCIAL_LINKS = [
   { 
     id: "github",
@@ -142,7 +137,6 @@ export const SOCIAL_LINKS = [
   }
 ];
 
-// Contact information
 export const CONTACT_INFO = {
   email: "jerome.devela.100@gmail.com",
   location: "Philippines",
@@ -150,10 +144,8 @@ export const CONTACT_INFO = {
   timezone: "GMT+8"
 };
 
-// Resume / Curriculum Vitae URL
 export const RESUME_URL = "https://github.com/Goriee";
 
-// Navigation items
 export const NAV_ITEMS = [
   { id: "hero", labelKey: "home" },
   { id: "about", labelKey: "about" },

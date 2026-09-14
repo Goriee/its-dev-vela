@@ -1,12 +1,6 @@
-/*
-================================================================================
-  COMPONENT SPECIFIC STYLES
-================================================================================
-*/
+/* Component Specific Styles */
 
-/* ====================================
-   THEME TOGGLE
-==================================== */
+/* Theme Toggle */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -64,9 +58,7 @@
   position: absolute;
 }
 
-/* ====================================
-   LANGUAGE SELECTOR
-==================================== */
+/* Language Selector */
 .translate-container {
   position: relative;
 }
@@ -171,9 +163,7 @@
   display: flex;
 }
 
-/* ====================================
-   PROJECT CARD
-==================================== */
+/* Project Card */
 .project-card {
   display: flex;
   flex-direction: column;
@@ -246,7 +236,7 @@
 
 .project-card__quick-btn:hover {
   background: var(--accent);
-  color: #ffffff;
+  color: var(--text-inverse);
   border-color: var(--accent);
 }
 
@@ -312,9 +302,7 @@
   color: var(--text-primary);
 }
 
-/* ====================================
-   PROJECT MODAL
-==================================== */
+/* Project Modal */
 .project-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -361,6 +349,7 @@
 
 .project-modal__close-btn:hover {
   background: var(--accent);
+  color: var(--text-inverse);
   transform: rotate(90deg);
 }
 
@@ -449,9 +438,7 @@
   flex-wrap: wrap;
 }
 
-/* ====================================
-   CONTACT FORM
-==================================== */
+/* Contact Form */
 .contact__form {
   display: flex;
   flex-direction: column;
@@ -525,9 +512,7 @@
   margin-top: var(--space-xs);
 }
 
-/* ====================================
-   TOAST NOTIFICATION
-==================================== */
+/* Toast Notification */
 .toast-notification {
   position: fixed;
   bottom: var(--space-xl);
