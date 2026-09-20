@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { SOCIAL_LINKS, TECH_STACK, CONTACT_INFO, RESUME_URL } from '../../constants/data';
 import ModelViewerSkeleton from '../ModelViewer3D/ModelViewerSkeleton';
@@ -41,6 +41,19 @@ const HeroSection = ({
   onCopyEmail 
 }) => {
   const [copied, setCopied] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return window.innerWidth > 860;
+  });
+
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsDesktop(window.innerWidth > 860);
+    };
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard?.writeText(CONTACT_INFO.email);
@@ -54,12 +67,14 @@ const HeroSection = ({
       <div className="hero__ambient-glow" aria-hidden="true" />
       <div className="hero__grid-pattern" aria-hidden="true" />
 
-      {/* 3D Model in the background */}
-      <div className="hero__model-bg" aria-label="Interactive 3D Experience">
-        <Suspense fallback={<ModelViewerSkeleton />}>
-          <ModelViewer3D modelUrl="/models/mymodel.glb" />
-        </Suspense>
-      </div>
+      {/* 3D Model in the background (PC / Desktop only) */}
+      {isDesktop && (
+        <div className="hero__model-bg" aria-label="Interactive 3D Experience">
+          <Suspense fallback={<ModelViewerSkeleton />}>
+            <ModelViewer3D modelUrl="/models/mymodel.glb" />
+          </Suspense>
+        </div>
+      )}
 
       <div className="hero__container">
         <div className="hero__content-col">
