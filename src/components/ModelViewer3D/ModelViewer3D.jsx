@@ -55,7 +55,9 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
   const handleResetCamera = useCallback(() => {
     parallaxTargetRef.current = { x: 0, y: -Math.PI / 2 };
     if (!cameraRef.current || !controlsRef.current || !modelGroupRef.current) return;
-    cameraRef.current.position.set(0, 0.35, 2.3);
+    const aspect = cameraRef.current.aspect || 1;
+    const defaultZ = aspect < 1 ? 2.3 / Math.max(aspect * 1.35, 0.65) : 2.3;
+    cameraRef.current.position.set(0, 0.35, defaultZ);
     controlsRef.current.target.set(0, 0, 0);
     controlsRef.current.update();
     modelGroupRef.current.rotation.set(0, -Math.PI / 2, 0);
@@ -72,8 +74,10 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
 
     const width = container.clientWidth || 400;
     const height = container.clientHeight || 400;
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-    camera.position.set(0, 0.35, 2.3);
+    const aspect = width / height;
+    const camera = new THREE.PerspectiveCamera(42, aspect, 0.1, 100);
+    const defaultZ = aspect < 1 ? 2.3 / Math.max(aspect * 1.35, 0.65) : 2.3;
+    camera.position.set(0, 0.35, defaultZ);
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({
@@ -216,9 +220,17 @@ const ModelViewer3D = ({ modelUrl = '/models/mymodel.glb', className = '' }) => 
       for (const entry of entries) {
         const { width: newWidth, height: newHeight } = entry.contentRect;
         if (newWidth > 0 && newHeight > 0) {
-          camera.aspect = newWidth / newHeight;
+          const newAspect = newWidth / newHeight;
+          camera.aspect = newAspect;
           camera.updateProjectionMatrix();
           renderer.setSize(newWidth, newHeight);
+
+          if (!userInteractingRef.current) {
+            const targetZ = newAspect < 1 ? 2.3 / Math.max(newAspect * 1.35, 0.65) : 2.3;
+            camera.position.z = targetZ;
+            controls.minDistance = newAspect < 1 ? 1.6 : 1.2;
+            controls.maxDistance = newAspect < 1 ? 5.5 : 4.0;
+          }
         }
       }
     });
