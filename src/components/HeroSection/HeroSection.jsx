@@ -54,7 +54,14 @@ const HeroSection = ({
       <div className="hero__ambient-glow" aria-hidden="true" />
       <div className="hero__grid-pattern" aria-hidden="true" />
 
-      <div className="hero__container hero__container--2col">
+      {/* 3D Model in the background */}
+      <div className="hero__model-bg" aria-label="Interactive 3D Experience">
+        <Suspense fallback={<ModelViewerSkeleton />}>
+          <ModelViewer3D modelUrl="/models/mymodel.glb" />
+        </Suspense>
+      </div>
+
+      <div className="hero__container">
         <div className="hero__content-col">
           <div className="hero__badge">
             <span className="hero__badge-pulse" aria-hidden="true" />
@@ -153,12 +160,6 @@ const HeroSection = ({
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="hero__model-col" aria-label="Interactive 3D Experience">
-          <Suspense fallback={<ModelViewerSkeleton />}>
-            <ModelViewer3D modelUrl="/models/mymodel.glb" />
-          </Suspense>
         </div>
       </div>
     </section>

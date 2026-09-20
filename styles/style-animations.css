@@ -50,8 +50,17 @@
   animation: hero-stagger-in 0.55s var(--ease-spring) 0.44s both;
 }
 
-.hero__model-col {
-  animation: hero-stagger-in 0.7s var(--ease-spring) 0.18s both;
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero__model-bg {
+  animation: hero-fade-in 0.8s ease-out 0.15s both;
 }
 
 /* Tactile Spring Press for Interactive Buttons */
@@ -78,7 +87,7 @@
   .hero__actions,
   .hero__social,
   .hero__tech-strip,
-  .hero__model-col {
+  .hero__model-bg {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;

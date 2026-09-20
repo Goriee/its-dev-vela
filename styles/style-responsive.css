@@ -20,15 +20,21 @@
     gap: var(--space-xl);
   }
 
-  .hero__container--2col {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
-    text-align: center;
+  .hero__container {
+    justify-content: center;
+  }
+
+  .hero__model-bg {
+    width: 100%;
+    left: 0;
+    right: 0;
+    opacity: 0.55;
   }
 
   .hero__content-col {
     align-items: center;
     text-align: center;
+    max-width: 100%;
   }
 
   .hero__content-col .hero__actions {
@@ -37,12 +43,6 @@
 
   .hero__content-col .hero__tech-strip {
     justify-content: center;
-  }
-
-  .hero__model-col {
-    max-width: 520px;
-    margin: 0 auto;
-    width: 100%;
   }
 }
 
